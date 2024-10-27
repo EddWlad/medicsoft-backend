@@ -178,4 +178,17 @@ C:\Users\USUARIO\Desktop\ProyectoMedicApp\MedicApp\FrontEnd\MedicApp\obj\Debug\n
 C:\Users\USUARIO\Desktop\ProyectoMedicApp\MedicApp\FrontEnd\MedicApp\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\qualifiers.txt.intermediate
 C:\Users\USUARIO\Desktop\ProyectoMedicApp\MedicApp\FrontEnd\MedicApp\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\MultipleQualifiersPerDimensionFound.txt
 C:\Users\USUARIO\Desktop\ProyectoMedicApp\MedicApp\FrontEnd\MedicApp\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\ProjectArchitectures.txt
-C:\Users\USUARIO\Desktop\ProyectoMedicApp\MedicApp\FrontEnd\MedicApp\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\r\logo.scale-100.jpeg
+C:\Users\USUARIO\Desktop\ProyectoMedicApp\MedicApp\FrontEnd\MedicApp\bin\Debug\net8.0-windows10.0.19041.0\win10-x64\SkiaSharp.dll
+C:\Users\USUARIO\Desktop\ProyectoMedicApp\MedicApp\FrontEnd\MedicApp\bin\Debug\net8.0-windows10.0.19041.0\win10-x64\SkiaSharp.Extended.dll
+C:\Users\USUARIO\Desktop\ProyectoMedicApp\MedicApp\FrontEnd\MedicApp\bin\Debug\net8.0-windows10.0.19041.0\win10-x64\SkiaSharp.Extended.UI.dll
+C:\Users\USUARIO\Desktop\ProyectoMedicApp\MedicApp\FrontEnd\MedicApp\bin\Debug\net8.0-windows10.0.19041.0\win10-x64\SkiaSharp.SceneGraph.dll
+C:\Users\USUARIO\Desktop\ProyectoMedicApp\MedicApp\FrontEnd\MedicApp\bin\Debug\net8.0-windows10.0.19041.0\win10-x64\SkiaSharp.Skottie.dll
+C:\Users\USUARIO\Desktop\ProyectoMedicApp\MedicApp\FrontEnd\MedicApp\bin\Debug\net8.0-windows10.0.19041.0\win10-x64\SkiaSharp.Views.Maui.Controls.dll
+C:\Users\USUARIO\Desktop\ProyectoMedicApp\MedicApp\FrontEnd\MedicApp\bin\Debug\net8.0-windows10.0.19041.0\win10-x64\SkiaSharp.Views.Maui.Core.dll
+C:\Users\USUARIO\Desktop\ProyectoMedicApp\MedicApp\FrontEnd\MedicApp\bin\Debug\net8.0-windows10.0.19041.0\win10-x64\SkiaSharp.Views.Windows.dll
+C:\Users\USUARIO\Desktop\ProyectoMedicApp\MedicApp\FrontEnd\MedicApp\bin\Debug\net8.0-windows10.0.19041.0\win10-x64\libSkiaSharp.dll
+C:\Users\USUARIO\Desktop\ProyectoMedicApp\MedicApp\FrontEnd\MedicApp\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\f\Font Awesome 6 Free-Solid-900.otf
+C:\Users\USUARIO\Desktop\ProyectoMedicApp\MedicApp\FrontEnd\MedicApp\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\f\lato-bold.ttf
+C:\Users\USUARIO\Desktop\ProyectoMedicApp\MedicApp\FrontEnd\MedicApp\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\f\lato-regular.ttf
+C:\Users\USUARIO\Desktop\ProyectoMedicApp\MedicApp\FrontEnd\MedicApp\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\r\applogo.scale-100.png
+C:\Users\USUARIO\Desktop\ProyectoMedicApp\MedicApp\FrontEnd\MedicApp\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\r\logo.scale-100.jpg

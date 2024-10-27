@@ -46,6 +46,7 @@
                         </Image.Source>
                     </Image>
                     <Entry Grid.Column="1"
+                           x:Name="EmailEntry"
                            Placeholder="EMAIL"/>
                 </Grid>
                 <Grid Margin="0,30,0,0" ColumnDefinitions=".2*,.8*">
@@ -64,22 +65,27 @@
                                 Color="#4F3F9b"/>
                         </Image.Source>
                     </Image>
-                    <Entry Grid.Column="1"
+                    <Entry x:Name="PasswordEntry"
+                           Grid.Column="1"
                            IsPassword="True"
                            Placeholder="PASSWORD"/>
                 </Grid>
                 <Button
                     Margin="0,20,0,0"
+                    x:Name="LoginButton" 
                     BackgroundColor="#4F3F9b"
                     HeightRequest="60"
                     Text="Login"
-                    TextColor="#FBF6FD"/>
+                    TextColor="#FBF6FD"
+                    Clicked="LoginButton_Clicked"/>
                 <Button
                     Margin="0,20,0,0"
+                    x:Name="CreateButton" 
                     BackgroundColor="#FBF6FD"
                     HeightRequest="60"
                     Text="Create your account"
-                    TextColor="#4F3F9b"/>
+                    TextColor="#4F3F9b"
+                    Clicked="CreateButton_Clicked"/>
             </VerticalStackLayout>
         </Grid>
     </Grid>

@@ -40,6 +40,9 @@
     <AppxPackagedFile Include="C:\Users\USUARIO\Desktop\ProyectoMedicApp\MedicApp\FrontEnd\MedicApp\Resources\Raw\AboutAssets.txt">
       <PackagePath>AboutAssets.txt</PackagePath>
     </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\USUARIO\Desktop\ProyectoMedicApp\MedicApp\FrontEnd\MedicApp\Resources\Raw\initialanimation.json">
+      <PackagePath>initialanimation.json</PackagePath>
+    </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\USUARIO\Desktop\ProyectoMedicApp\MedicApp\FrontEnd\MedicApp\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\sp\splashSplashScreen.scale-100.png">
       <PackagePath>splashSplashScreen.scale-100.png</PackagePath>
     </AppxPackagedFile>
@@ -54,6 +57,15 @@
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\USUARIO\Desktop\ProyectoMedicApp\MedicApp\FrontEnd\MedicApp\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\sp\splashSplashScreen.scale-400.png">
       <PackagePath>splashSplashScreen.scale-400.png</PackagePath>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\USUARIO\Desktop\ProyectoMedicApp\MedicApp\FrontEnd\MedicApp\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\f\Font Awesome 6 Free-Solid-900.otf">
+      <PackagePath>Font Awesome 6 Free-Solid-900.otf</PackagePath>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\USUARIO\Desktop\ProyectoMedicApp\MedicApp\FrontEnd\MedicApp\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\f\lato-bold.ttf">
+      <PackagePath>lato-bold.ttf</PackagePath>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\USUARIO\Desktop\ProyectoMedicApp\MedicApp\FrontEnd\MedicApp\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\f\lato-regular.ttf">
+      <PackagePath>lato-regular.ttf</PackagePath>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\USUARIO\Desktop\ProyectoMedicApp\MedicApp\FrontEnd\MedicApp\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\f\OpenSans-Regular.ttf">
       <PackagePath>OpenSans-Regular.ttf</PackagePath>
@@ -199,6 +211,9 @@
     <AppxPackagedFile Include="C:\Users\USUARIO\Desktop\ProyectoMedicApp\MedicApp\FrontEnd\MedicApp\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\r\appiconWideTile.scale-400.png">
       <PackagePath>appiconWideTile.scale-400.png</PackagePath>
     </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\USUARIO\Desktop\ProyectoMedicApp\MedicApp\FrontEnd\MedicApp\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\r\applogo.scale-100.png">
+      <PackagePath>applogo.scale-100.png</PackagePath>
+    </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\USUARIO\Desktop\ProyectoMedicApp\MedicApp\FrontEnd\MedicApp\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\r\dotnet_bot.scale-100.png">
       <PackagePath>dotnet_bot.scale-100.png</PackagePath>
     </AppxPackagedFile>
@@ -214,8 +229,8 @@
     <AppxPackagedFile Include="C:\Users\USUARIO\Desktop\ProyectoMedicApp\MedicApp\FrontEnd\MedicApp\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\r\dotnet_bot.scale-400.png">
       <PackagePath>dotnet_bot.scale-400.png</PackagePath>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\USUARIO\Desktop\ProyectoMedicApp\MedicApp\FrontEnd\MedicApp\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\r\logo.scale-100.jpeg">
-      <PackagePath>logo.scale-100.jpeg</PackagePath>
+    <AppxPackagedFile Include="C:\Users\USUARIO\Desktop\ProyectoMedicApp\MedicApp\FrontEnd\MedicApp\obj\Debug\net8.0-windows10.0.19041.0\win10-x64\resizetizer\r\logo.scale-100.jpg">
+      <PackagePath>logo.scale-100.jpg</PackagePath>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\USUARIO\Desktop\ProyectoMedicApp\MedicApp\FrontEnd\MedicApp\bin\Debug\net8.0-windows10.0.19041.0\win10-x64\MedicApp.deps.json">
       <PackagePath>MedicApp.deps.json</PackagePath>
@@ -325,6 +340,30 @@
     <AppxPackagedFile Include="C:\Users\USUARIO\.nuget\packages\microsoft.windowsappsdk\1.5.240627000\lib\net6.0-windows10.0.18362.0\Microsoft.WindowsAppRuntime.Bootstrap.Net.dll">
       <PackagePath>Microsoft.WindowsAppRuntime.Bootstrap.Net.dll</PackagePath>
     </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\USUARIO\.nuget\packages\skiasharp\2.88.7\lib\net6.0\SkiaSharp.dll">
+      <PackagePath>SkiaSharp.dll</PackagePath>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\USUARIO\.nuget\packages\skiasharp.extended\2.0.0\lib\netstandard2.0\SkiaSharp.Extended.dll">
+      <PackagePath>SkiaSharp.Extended.dll</PackagePath>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\USUARIO\.nuget\packages\skiasharp.extended.ui.maui\2.0.0\lib\net7.0-windows10.0.19041\SkiaSharp.Extended.UI.dll">
+      <PackagePath>SkiaSharp.Extended.UI.dll</PackagePath>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\USUARIO\.nuget\packages\skiasharp.skottie\2.88.7\lib\net6.0\SkiaSharp.SceneGraph.dll">
+      <PackagePath>SkiaSharp.SceneGraph.dll</PackagePath>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\USUARIO\.nuget\packages\skiasharp.skottie\2.88.7\lib\net6.0\SkiaSharp.Skottie.dll">
+      <PackagePath>SkiaSharp.Skottie.dll</PackagePath>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\USUARIO\.nuget\packages\skiasharp.views.maui.controls\2.88.7\lib\net6.0-windows10.0.18362.0\SkiaSharp.Views.Maui.Controls.dll">
+      <PackagePath>SkiaSharp.Views.Maui.Controls.dll</PackagePath>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\USUARIO\.nuget\packages\skiasharp.views.maui.core\2.88.7\lib\net6.0-windows10.0.18362.0\SkiaSharp.Views.Maui.Core.dll">
+      <PackagePath>SkiaSharp.Views.Maui.Core.dll</PackagePath>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\USUARIO\.nuget\packages\skiasharp.views.winui\2.88.7\lib\net6.0-windows10.0.19041.0\SkiaSharp.Views.Windows.dll">
+      <PackagePath>SkiaSharp.Views.Windows.dll</PackagePath>
+    </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\USUARIO\.nuget\packages\microsoft.maui.controls.core\8.0.82\lib\net8.0-windows10.0.19041\ar\Microsoft.Maui.Controls.resources.dll">
       <PackagePath>ar\Microsoft.Maui.Controls.resources.dll</PackagePath>
     </AppxPackagedFile>
@@ -432,6 +471,9 @@
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\USUARIO\.nuget\packages\microsoft.windowsappsdk\1.5.240627000\runtimes\win10-x64\native\Microsoft.WindowsAppRuntime.Bootstrap.dll">
       <PackagePath>Microsoft.WindowsAppRuntime.Bootstrap.dll</PackagePath>
+    </AppxPackagedFile>
+    <AppxPackagedFile Include="C:\Users\USUARIO\.nuget\packages\skiasharp.nativeassets.win32\2.88.7\runtimes\win-x64\native\libSkiaSharp.dll">
+      <PackagePath>libSkiaSharp.dll</PackagePath>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\USUARIO\.nuget\packages\microsoft.maui.controls.compatibility\8.0.82\lib\net8.0-windows10.0.19041\Microsoft.Maui.Controls.Compatibility.pri">
       <PackagePath>Microsoft.Maui.Controls.Compatibility.pri</PackagePath>

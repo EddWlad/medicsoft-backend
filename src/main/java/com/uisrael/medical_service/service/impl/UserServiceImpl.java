@@ -68,4 +68,9 @@ public class UserServiceImpl implements IUserService {
     public Long countUser() {
         return userRepository.count();
     }
+
+    @Override
+    public Optional<User> findByEmail(String email) {
+        return userRepository.findByEmail(email);
+    }
 }

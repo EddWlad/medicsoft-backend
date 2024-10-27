@@ -1,11 +1,12 @@
 package com.uisrael.medical_service.controller;
 
-import com.uisrael.medical_service.entities.Dispensary;
 
 import com.uisrael.medical_service.entities.User;
+import com.uisrael.medical_service.model.LoginRequestDTO;
 import com.uisrael.medical_service.model.UserDTO;
 import com.uisrael.medical_service.service.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -14,6 +15,7 @@ import java.net.URISyntaxException;
 import java.util.List;
 import java.util.Optional;
 
+@CrossOrigin(origins = "http://10.0.2.2:5000")
 @RestController
 @RequestMapping("api/user")
 public class UserController {
@@ -106,6 +108,35 @@ public class UserController {
             return ResponseEntity.ok("Usuario actualizado");
         }
         return ResponseEntity.notFound().build();
+    }
+
+    @PostMapping("/login")
+    public ResponseEntity<?> login(@RequestBody LoginRequestDTO loginRequestDTO) {
+        Optional<User> userOptional = userService.findByEmail(loginRequestDTO.getEmail());
+
+        if (userOptional.isPresent()) {
+            User user = userOptional.get();
+
+            if (user.getPassword().equals(loginRequestDTO.getPassword())) {
+                UserDTO userDTO = UserDTO.builder()
+                        .id(user.getId())
+                        .dateCreate(user.getDateCreate())
+                        .identification(user.getIdentification())
+                        .name(user.getName())
+                        .lastName(user.getLastName())
+                        .username(user.getUsername())
+                        .email(user.getEmail())
+                        .role(user.getRole())
+                        .status(user.getStatus())
+                        .build();
+
+                return ResponseEntity.ok(userDTO);
+            } else {
+                return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid password");
+            }
+        }
+
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User not found");
     }
 
     @DeleteMapping("/delete/{id}")

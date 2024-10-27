@@ -14,4 +14,6 @@ public interface IUserService {
     User updateUser(Long id, User user);
     public boolean deleteUser(Long id);
     Long countUser();
+
+    Optional<User> findByEmail(String email);
 }
