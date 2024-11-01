@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="MedicApp.Views.UsersPage"
+             NavigationPage.HasNavigationBar="False"
+             Title="UsersPage">
+
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="Añadir"
+                     x:Name="AddUser"
+                     Clicked="AddUser_Clicked"
+                     IconImageSource="add_solid.svg"
+                     />
+        
+    </ContentPage.ToolbarItems>
+
+    <StackLayout Padding="10">
+
+        <SearchBar Placeholder="Buscar usuario..." 
+                   SearchCommand="{Binding SearchCommand}" 
+                   Text="{Binding SearchText}" />
+
+
+        <Picker Title="Filtrar por Rol" 
+                ItemsSource="{Binding Roles}" 
+                SelectedItem="{Binding SelectedRole}" />
+
+        <ScrollView>
+        <CollectionView ItemsSource="{Binding UsersList}"
+                        VerticalOptions="FillAndExpand">
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <Frame BorderColor="LightGray" Padding="10" Margin="0,5" CornerRadius="5">
+                        <StackLayout>
+                            <Label Text="{Binding dateCreateAsDateTime, StringFormat='{0:yyyy-MM-dd}'}" FontSize="14" />
+                            <Label Text="{Binding name}" FontAttributes="Bold" FontSize="18" />
+                            <Label Text="{Binding email}" FontSize="14" />
+                            <Label Text="{Binding role.name}" FontSize="14" />
+                            <Label Text="{Binding StatusText}" FontSize="14" TextColor="{Binding StatusColor}" />
+
+                            <StackLayout Orientation="Horizontal" HorizontalOptions="EndAndExpand" Spacing="20">
+                                <Button Text="Editar" 
+                                FontSize="Small"
+                                Command="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.EditCommand}"
+                                CommandParameter="{Binding .}"
+                                BackgroundColor="MediumSlateBlue" />
+
+                                <Button Text="Eliminar" 
+                                FontSize="Small"
+                                Command="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.DeleteCommand}"
+                                CommandParameter="{Binding .}"
+                                BackgroundColor="Red"
+                                TextColor="White"/>
+                            </StackLayout>
+                        </StackLayout>
+                    </Frame>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+       </ScrollView>
+   </StackLayout>
+
+
+</ContentPage>

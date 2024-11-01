@@ -32,6 +32,7 @@ public partial class LoginPage : ContentPage
         if (isSuccess)
         {
             DisplayAlert("Éxito", "Login exitoso", "OK");
+            Navigation.PushAsync(new UsersPage());
 
         }
         else
@@ -44,13 +45,12 @@ public partial class LoginPage : ContentPage
     {
         try
         {
-            // Crear el cliente HTTP
+
             var client = new HttpClient();
-            var backendUrl = "http://10.0.2.2:5000/api/user/login";  // Dirección del backend
+            var backendUrl = "http://10.0.2.2:5000/api/user/login";
 
             Console.WriteLine($"Enviando solicitud de login con email: {email}");
 
-            // Crear el contenido JSON
             var loginData = new
             {
                 email = email,
@@ -60,23 +60,22 @@ public partial class LoginPage : ContentPage
             var json = JsonSerializer.Serialize(loginData);
             var content = new StringContent(json, Encoding.UTF8, "application/json");
 
-            // Hacer la solicitud de forma sincrónica usando .Result
-            var response = client.PostAsync(backendUrl, content).Result;  // Usamos .Result para hacerlo sincrónico
+            var response = client.PostAsync(backendUrl, content).Result;
 
-            // Verificar si la respuesta fue exitosa
             if (response.IsSuccessStatusCode)
             {
                 var responseContent = response.Content.ReadAsStringAsync().Result;
 
-                // Verificar si la respuesta es "Login successful"
+
                 if (responseContent.Contains("Login successful"))
                 {
+ 
                     return true;
                 }
                 else
                 {
                     Console.WriteLine("Login exitoso, datos de usuario: " + responseContent);
-                    return true;  // Puedes manejar este caso dependiendo de tu lógica
+                    return true;
                 }
             }
             else if (response.StatusCode == System.Net.HttpStatusCode.Unauthorized)
@@ -98,7 +97,7 @@ public partial class LoginPage : ContentPage
 
     private void CreateButton_Clicked(object sender, EventArgs e)
     {
-
+        Navigation.PushAsync(new CreateAccountPage());
     }
 
 }

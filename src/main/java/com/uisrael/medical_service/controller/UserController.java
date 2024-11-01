@@ -38,7 +38,6 @@ public class UserController {
                         .password(user.getPassword())
                         .role(user.getRole())
                         .status(user.getStatus())
-
                         .build())
                 .toList();
         return ResponseEntity.ok(userList);
