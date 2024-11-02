@@ -2,6 +2,7 @@ package com.uisrael.medical_service.entities;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
@@ -12,7 +13,7 @@ import lombok.*;
 import java.util.ArrayList;
 import java.util.List;
 
-@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
+//@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 @Entity
 @Data
 @Builder
@@ -53,12 +54,14 @@ public class Medicine {
     @Column(nullable = false, columnDefinition = "Integer default 1")
     private Integer status;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "medicine", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
     //@JsonManagedReference
     private List<Dispensary> dispensaries = new ArrayList<>();
 
+    @JsonIgnore
     @OneToMany(mappedBy = "medicine", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
-    @ToString.Exclude
+    //@ToString.Exclude
     //@JsonManagedReference
     private List<Restock> restocks = new ArrayList<>();
 

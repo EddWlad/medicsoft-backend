@@ -1069,3 +1069,5 @@ C:\Users\USUARIO\Desktop\ProyectoMedicApp\MedicApp\FrontEnd\MedicApp\obj\Debug\n
 C:\Users\USUARIO\Desktop\ProyectoMedicApp\MedicApp\FrontEnd\MedicApp\obj\Debug\net8.0-android\android\src\crc648e35430423bd4943\SKGLTextureViewRenderer.java
 C:\Users\USUARIO\Desktop\ProyectoMedicApp\MedicApp\FrontEnd\MedicApp\obj\Debug\net8.0-android\android\src\crc648e35430423bd4943\SKGLTextureView_InternalRenderer.java
 C:\Users\USUARIO\Desktop\ProyectoMedicApp\MedicApp\FrontEnd\MedicApp\obj\Debug\net8.0-android\android\src\crc648e35430423bd4943\SKSurfaceView.java
+C:\Users\USUARIO\Desktop\ProyectoMedicApp\MedicApp\FrontEnd\MedicApp\obj\Debug\net8.0-android\resizetizer\r\drawable\patient.png
+C:\Users\USUARIO\Desktop\ProyectoMedicApp\MedicApp\FrontEnd\MedicApp\obj\Debug\net8.0-android\resizetizer\r\drawable\diagnostic.png

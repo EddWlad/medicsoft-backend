@@ -5,6 +5,7 @@
              x:Class="MedicApp.Views.CreateAccountPage"
              Title="CreateAccountPage"
              NavigationPage.HasNavigationBar="False">
+    
     <Grid RowDefinitions=".3*,.7*">
         <Image Aspect="AspectFill" Source="logo.jpeg"/>
         <Grid Background="#4F3F9B" Opacity=".9"/>

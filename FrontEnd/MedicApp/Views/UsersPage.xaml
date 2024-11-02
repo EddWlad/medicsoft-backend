@@ -5,28 +5,25 @@
              NavigationPage.HasNavigationBar="False"
              Title="UsersPage">
 
+    
     <ContentPage.ToolbarItems>
         <ToolbarItem Text="Añadir"
                      x:Name="AddUser"
                      Clicked="AddUser_Clicked"
-                     IconImageSource="add_solid.svg"
                      />
-        
     </ContentPage.ToolbarItems>
 
     <StackLayout Padding="10">
 
-        <SearchBar Placeholder="Buscar usuario..." 
-                   SearchCommand="{Binding SearchCommand}" 
-                   Text="{Binding SearchText}" />
+        <HorizontalStackLayout Spacing="10">
+            <SearchBar Placeholder="Buscar usuario..." 
+                       SearchCommand="{Binding SearchCommand}" 
+                       Text="{Binding SearchText}" />
 
-
-        <Picker Title="Filtrar por Rol" 
-                ItemsSource="{Binding Roles}" 
-                SelectedItem="{Binding SelectedRole}" />
+        </HorizontalStackLayout>
 
         <ScrollView>
-        <CollectionView ItemsSource="{Binding UsersList}"
+            <CollectionView ItemsSource="{Binding UsersList}"
                         VerticalOptions="FillAndExpand">
             <CollectionView.ItemTemplate>
                 <DataTemplate>
@@ -57,6 +54,7 @@
                 </DataTemplate>
             </CollectionView.ItemTemplate>
         </CollectionView>
+            
        </ScrollView>
    </StackLayout>
 

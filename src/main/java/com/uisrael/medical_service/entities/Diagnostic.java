@@ -12,7 +12,7 @@ import lombok.*;
 
 import java.util.Date;
 
-@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
+//@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 @Entity
 @Data
 @NoArgsConstructor
@@ -34,10 +34,10 @@ public class Diagnostic {
     @Size(min = 3, max = 500)
     private String symptoms;
 
-
+    @Size(min = 3, max = 900)
     private String diagnostic;
 
-    @Size(min = 3, max = 300)
+    @Size(min = 3, max = 500)
     private String observation;
 
     @Column(nullable = false, columnDefinition = "Integer default 1")

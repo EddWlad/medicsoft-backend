@@ -8,7 +8,9 @@ namespace MedicApp
         {
             InitializeComponent();
 
-            MainPage = new NavigationPage(new LoginPage());
+            MainPage = new NavigationPage(new DiagnosticsPage());
+            //MainPage = new NavigationPage(new PatientPage());
+            //MainPage = new NavigationPage(new LoginPage());
         }
     }
 }

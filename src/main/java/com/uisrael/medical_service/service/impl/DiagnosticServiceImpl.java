@@ -77,7 +77,9 @@ public class DiagnosticServiceImpl implements IDiagnosticService {
 
     @Override
     public String generateDiagnosticFromSymptoms(String symptoms) {
-        String responseDiagnostic =  "Simula que eres un experto médico general y con los síntomas proporcionados, da un diagnóstico lo más exacto posible," +
+        String responseDiagnostic =  "Simula que eres un experto médico general y con los síntomas proporcionados, " +
+                "da un diagnóstico lo más exacto posible sugiriendo algun medicamento que puede tener un medico ocupacional a la mano," +
+                "tambien tu respuesta debera ser de 3 a 4 lineas" +
                 "tengo los siguientes sintomas: "+symptoms;
         return chatClient.prompt(responseDiagnostic).call().content().toString();
     }
