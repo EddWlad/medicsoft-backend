@@ -32,7 +32,7 @@ public class Medicine {
 
     @NotBlank
     @NotNull
-    @Size(min = 3, max = 50)
+    @Size(min = 3, max = 35)
     private String name;
 
     @NotBlank

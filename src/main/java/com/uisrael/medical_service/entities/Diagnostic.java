@@ -37,7 +37,7 @@ public class Diagnostic {
     @Size(min = 3, max = 900)
     private String diagnostic;
 
-    @Size(min = 3, max = 500)
+    @Size(min = 3, max = 600)
     private String observation;
 
     @Column(nullable = false, columnDefinition = "Integer default 1")
