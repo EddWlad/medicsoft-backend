@@ -3,12 +3,8 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="MedicApp.Views.PatientPage"
              NavigationPage.HasNavigationBar="False"
-             Title="PatientPage">
-    <ContentPage.ToolbarItems>
-        <ToolbarItem Text="Añadir"
-                     x:Name="AddPatient"
-                     />
-    </ContentPage.ToolbarItems>
+             Title="Pacientes">
+
 
     <StackLayout Padding="10">
 

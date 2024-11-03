@@ -32,7 +32,7 @@ public partial class LoginPage : ContentPage
         if (isSuccess)
         {
             DisplayAlert("Éxito", "Login exitoso", "OK");
-            Navigation.PushAsync(new UsersPage());
+            Application.Current.MainPage = new AppShell();
 
         }
         else
@@ -92,12 +92,17 @@ public partial class LoginPage : ContentPage
             DisplayAlert("Error", $"Ocurrió un error: {ex.Message}", "OK");
         }
 
-        return false;  // Si hubo un error, retornar false
+        return false;
     }
 
     private void CreateButton_Clicked(object sender, EventArgs e)
     {
         Navigation.PushAsync(new CreateAccountPage());
+    }
+
+    protected override bool OnBackButtonPressed()
+    {
+        return true;
     }
 
 }

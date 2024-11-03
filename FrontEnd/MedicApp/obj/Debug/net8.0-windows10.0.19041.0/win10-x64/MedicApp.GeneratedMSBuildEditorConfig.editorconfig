@@ -30,6 +30,12 @@ build_metadata.AdditionalFiles.ManifestResourceName = MedicApp.Resources.Styles.
 build_metadata.AdditionalFiles.TargetPath = Resources\Styles\Styles.xaml
 build_metadata.AdditionalFiles.RelativePath = Resources\Styles\Styles.xaml
 
+[C:/Users/USUARIO/Desktop/ProyectoMedicApp/MedicApp/FrontEnd/MedicApp/Views/AppShell.xaml]
+build_metadata.AdditionalFiles.GenKind = Xaml
+build_metadata.AdditionalFiles.ManifestResourceName = MedicApp.Views.AppShell.xaml
+build_metadata.AdditionalFiles.TargetPath = Views\AppShell.xaml
+build_metadata.AdditionalFiles.RelativePath = Views\AppShell.xaml
+
 [C:/Users/USUARIO/Desktop/ProyectoMedicApp/MedicApp/FrontEnd/MedicApp/Views/CreateAccountPage.xaml]
 build_metadata.AdditionalFiles.GenKind = Xaml
 build_metadata.AdditionalFiles.ManifestResourceName = MedicApp.Views.CreateAccountPage.xaml

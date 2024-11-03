@@ -4,7 +4,7 @@
              xmlns:skia="clr-namespace:SkiaSharp.Extended.UI.Controls;assembly=SkiaSharp.Extended.UI"
              x:Class="MedicApp.Views.LoginPage"
              NavigationPage.HasNavigationBar="False"
-             Title="LoginPage">
+             Title="Login">
     <Grid RowDefinitions=".3*,.7*">
         <Image Aspect="AspectFill" Source="logo.jpeg"/>
         <Grid Background="#4F3F9B" Opacity=".9"/>

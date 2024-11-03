@@ -3,15 +3,10 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="MedicApp.Views.UsersPage"
              NavigationPage.HasNavigationBar="False"
-             Title="UsersPage">
+             Title="Usuarios">
 
     
-    <ContentPage.ToolbarItems>
-        <ToolbarItem Text="Añadir"
-                     x:Name="AddUser"
-                     Clicked="AddUser_Clicked"
-                     />
-    </ContentPage.ToolbarItems>
+
 
     <StackLayout Padding="10">
 
