@@ -1,6 +1,7 @@
 package com.uisrael.medical_service.service.impl;
 
 import com.uisrael.medical_service.entities.Diagnostic;
+import com.uisrael.medical_service.model.DiagnosticDTO;
 import com.uisrael.medical_service.repositories.IDiagnosticRepository;
 import com.uisrael.medical_service.service.IDiagnosticService;
 import org.springframework.ai.chat.client.ChatClient;
@@ -9,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class DiagnosticServiceImpl implements IDiagnosticService {
@@ -82,5 +84,33 @@ public class DiagnosticServiceImpl implements IDiagnosticService {
                 "tambien tu respuesta debera ser de 3 a 4 lineas" +
                 "tengo los siguientes sintomas: "+symptoms;
         return chatClient.prompt(responseDiagnostic).call().content().toString();
+    }
+
+    @Override
+    public List<DiagnosticDTO> findDiagnosticsByPatientNameAndLastName(String name, String lastName) {
+        List<Diagnostic> diagnostics = diagnosticRepository.findByPatientNameAndLastName(name, lastName);
+        return diagnostics.stream()
+                .map(diagnostic -> {
+                    DiagnosticDTO dto = new DiagnosticDTO();
+                    dto.setId(diagnostic.getId());
+                    dto.setPatient(diagnostic.getPatient());
+                    dto.setSymptoms(diagnostic.getSymptoms());
+                    dto.setDiagnostic(diagnostic.getDiagnostic());
+                    dto.setObservation(diagnostic.getObservation());
+                    dto.setDiagnosticDate(diagnostic.getDiagnosticDate());
+                    dto.setStatus(diagnostic.getStatus());
+                    return dto;
+                })
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public void markAllAsSeenByPatientId(Long patientId) {
+        List<Diagnostic> diagnostics = diagnosticRepository.findByPatientIdAndIsNewTrue(patientId);
+        for (Diagnostic diagnostic : diagnostics) {
+            diagnostic.setIsNew(false);
+            //diagnosticRepository.save(diagnostic);
+        }
+        diagnosticRepository.saveAll(diagnostics);
     }
 }

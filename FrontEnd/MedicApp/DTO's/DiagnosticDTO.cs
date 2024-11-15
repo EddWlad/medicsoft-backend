@@ -16,6 +16,8 @@ namespace MedicApp.DTO_s
         public string diagnostic { get; set; }
         public string observation { get; set; }
         public PatientDTO patient { get; set; }
+
+        public bool isNew { get; set; } = true;
         public int status { get; set; }
 
         public string StatusText => status != 1 ? "Inactivo" : "Activo";

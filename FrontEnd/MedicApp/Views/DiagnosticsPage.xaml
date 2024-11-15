@@ -4,8 +4,9 @@
              x:Class="MedicApp.Views.DiagnosticsPage"
              NavigationPage.HasNavigationBar="False"
              Title="Diagnosticos">
-    
-    <StackLayout Padding="10">
+
+    <ScrollView>
+        <StackLayout Padding="10">
 
         <HorizontalStackLayout Spacing="10">
             <SearchBar Placeholder="Buscar diagnostico..." 
@@ -21,7 +22,7 @@
                 TextColor="White"
                 Clicked="btnCreate_Clicked"/>
 
-        <ScrollView>
+        
             <CollectionView ItemsSource="{Binding DiagnosticsList}"
                         VerticalOptions="FillAndExpand">
                 <CollectionView.ItemTemplate>
@@ -35,25 +36,28 @@
                                 <Label Text="{Binding StatusText}" FontSize="14" TextColor="{Binding StatusColor}" />
 
                                 <StackLayout Orientation="Horizontal" HorizontalOptions="EndAndExpand" Spacing="20">
-                                    <Button Text="Editar" 
-                                FontSize="Small"
-                                Command="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.EditCommand}"
-                                CommandParameter="{Binding .}"
-                                BackgroundColor="MediumSlateBlue" />
+                                    <Button Text="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.UserRole, Converter={StaticResource RoleToTextConverter}}"
+        FontSize="Small"
+        Command="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.EditCommand}"
+        CommandParameter="{Binding .}"
+        BackgroundColor="MediumSlateBlue"
+        TextColor="White" />
 
-                                    <Button Text="Eliminar" 
-                                FontSize="Small"
-                                Command="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.DeleteCommand}"
-                                CommandParameter="{Binding .}"
-                                BackgroundColor="Red"
-                                TextColor="White"/>
+
+                                    <Button Text="Eliminar"
+        FontSize="Small"
+        Command="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.DeleteCommand}"
+        CommandParameter="{Binding .}"
+        BackgroundColor="Red"
+        TextColor="White"
+        IsVisible="{Binding Source={RelativeSource AncestorType={x:Type ContentPage}}, Path=BindingContext.UserRole, Converter={StaticResource RoleToVisibilityConverter}}" />
                                 </StackLayout>
                             </StackLayout>
                         </Frame>
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
             </CollectionView>
-
-        </ScrollView>
+        
     </StackLayout>
+    </ScrollView>
 </ContentPage>

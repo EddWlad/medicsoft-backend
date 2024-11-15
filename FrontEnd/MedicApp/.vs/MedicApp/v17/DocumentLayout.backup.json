@@ -3,16 +3,12 @@
   "WorkspaceRootPath": "C:\\Users\\USUARIO\\Desktop\\ProyectoMedicApp\\MedicApp\\FrontEnd\\MedicApp\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{62E1048E-156D-4126-B85F-FC62BA88808F}|MedicApp.csproj|c:\\users\\usuario\\desktop\\proyectomedicapp\\medicapp\\frontend\\medicapp\\views\\createpatientpage.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
-      "RelativeMoniker": "D:0:0:{62E1048E-156D-4126-B85F-FC62BA88808F}|MedicApp.csproj|solutionrelative:views\\createpatientpage.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+      "AbsoluteMoniker": "D:0:0:{62E1048E-156D-4126-B85F-FC62BA88808F}|MedicApp.csproj|c:\\users\\usuario\\desktop\\proyectomedicapp\\medicapp\\frontend\\medicapp\\views\\diagnosticspage.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{62E1048E-156D-4126-B85F-FC62BA88808F}|MedicApp.csproj|solutionrelative:views\\diagnosticspage.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{62E1048E-156D-4126-B85F-FC62BA88808F}|MedicApp.csproj|c:\\users\\usuario\\desktop\\proyectomedicapp\\medicapp\\frontend\\medicapp\\views\\creatediagnosticpage.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
-      "RelativeMoniker": "D:0:0:{62E1048E-156D-4126-B85F-FC62BA88808F}|MedicApp.csproj|solutionrelative:views\\creatediagnosticpage.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{62E1048E-156D-4126-B85F-FC62BA88808F}|MedicApp.csproj|c:\\users\\usuario\\desktop\\proyectomedicapp\\medicapp\\frontend\\medicapp\\views\\createaccountpage.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
-      "RelativeMoniker": "D:0:0:{62E1048E-156D-4126-B85F-FC62BA88808F}|MedicApp.csproj|solutionrelative:views\\createaccountpage.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+      "AbsoluteMoniker": "D:0:0:{62E1048E-156D-4126-B85F-FC62BA88808F}|MedicApp.csproj|c:\\users\\usuario\\desktop\\proyectomedicapp\\medicapp\\frontend\\medicapp\\dto\u0027s\\diagnosticdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{62E1048E-156D-4126-B85F-FC62BA88808F}|MedicApp.csproj|solutionrelative:dto\u0027s\\diagnosticdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -22,7 +18,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 2,
+          "SelectedChildIndex": 3,
           "Children": [
             {
               "$type": "Bookmark",
@@ -34,41 +30,28 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "CreatePatientPage.xaml",
-              "DocumentMoniker": "C:\\Users\\USUARIO\\Desktop\\ProyectoMedicApp\\MedicApp\\FrontEnd\\MedicApp\\Views\\CreatePatientPage.xaml",
-              "RelativeDocumentMoniker": "Views\\CreatePatientPage.xaml",
-              "ToolTip": "C:\\Users\\USUARIO\\Desktop\\ProyectoMedicApp\\MedicApp\\FrontEnd\\MedicApp\\Views\\CreatePatientPage.xaml",
-              "RelativeToolTip": "Views\\CreatePatientPage.xaml",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAUAAAA1AAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
-              "WhenOpened": "2024-11-03T16:20:22.92Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
               "DocumentIndex": 1,
-              "Title": "CreateDiagnosticPage.xaml",
-              "DocumentMoniker": "C:\\Users\\USUARIO\\Desktop\\ProyectoMedicApp\\MedicApp\\FrontEnd\\MedicApp\\Views\\CreateDiagnosticPage.xaml",
-              "RelativeDocumentMoniker": "Views\\CreateDiagnosticPage.xaml",
-              "ToolTip": "C:\\Users\\USUARIO\\Desktop\\ProyectoMedicApp\\MedicApp\\FrontEnd\\MedicApp\\Views\\CreateDiagnosticPage.xaml",
-              "RelativeToolTip": "Views\\CreateDiagnosticPage.xaml",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAUAAAA1AAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
-              "WhenOpened": "2024-11-03T16:20:07.43Z",
+              "Title": "DiagnosticDTO.cs",
+              "DocumentMoniker": "C:\\Users\\USUARIO\\Desktop\\ProyectoMedicApp\\MedicApp\\FrontEnd\\MedicApp\\DTO\u0027s\\DiagnosticDTO.cs",
+              "RelativeDocumentMoniker": "DTO\u0027s\\DiagnosticDTO.cs",
+              "ToolTip": "C:\\Users\\USUARIO\\Desktop\\ProyectoMedicApp\\MedicApp\\FrontEnd\\MedicApp\\DTO\u0027s\\DiagnosticDTO.cs",
+              "RelativeToolTip": "DTO\u0027s\\DiagnosticDTO.cs",
+              "ViewState": "AgIAAAoAAAAAAAAAAAAAABIAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-14T23:49:04.19Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "CreateAccountPage.xaml",
-              "DocumentMoniker": "C:\\Users\\USUARIO\\Desktop\\ProyectoMedicApp\\MedicApp\\FrontEnd\\MedicApp\\Views\\CreateAccountPage.xaml",
-              "RelativeDocumentMoniker": "Views\\CreateAccountPage.xaml",
-              "ToolTip": "C:\\Users\\USUARIO\\Desktop\\ProyectoMedicApp\\MedicApp\\FrontEnd\\MedicApp\\Views\\CreateAccountPage.xaml",
-              "RelativeToolTip": "Views\\CreateAccountPage.xaml",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAQAAAA3AAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
-              "WhenOpened": "2024-11-03T16:19:56.364Z",
+              "DocumentIndex": 0,
+              "Title": "DiagnosticsPage.xaml.cs",
+              "DocumentMoniker": "C:\\Users\\USUARIO\\Desktop\\ProyectoMedicApp\\MedicApp\\FrontEnd\\MedicApp\\Views\\DiagnosticsPage.xaml.cs",
+              "RelativeDocumentMoniker": "Views\\DiagnosticsPage.xaml.cs",
+              "ToolTip": "C:\\Users\\USUARIO\\Desktop\\ProyectoMedicApp\\MedicApp\\FrontEnd\\MedicApp\\Views\\DiagnosticsPage.xaml.cs",
+              "RelativeToolTip": "Views\\DiagnosticsPage.xaml.cs",
+              "ViewState": "AgIAAE8AAAAAAAAAAAAAAEwAAAAnAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-14T23:16:05.423Z",
               "EditorCaption": ""
             }
           ]

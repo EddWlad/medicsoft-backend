@@ -21,6 +21,7 @@ public partial class CreateDiagnosticPage : ContentPage
     public CreateDiagnosticPage()
 	{
 		InitializeComponent();
+        NavigationPage.SetHasNavigationBar(this, false);
         CurrentDate = DateTime.Now.ToString("yyyy-MM-dd");
         BindingContext = this;
         CreateButton.Text = "Create Diagnostic";
@@ -227,5 +228,19 @@ public partial class CreateDiagnosticPage : ContentPage
         {
             await DisplayAlert("Error", $"Ocurrió un error: {ex.Message}", "OK");
         }
+    }
+
+    public void SetReadOnlyMode()
+    {
+
+        SymptomsEntry.IsEnabled = false;
+        DiagnosticEntry.IsEnabled = false;
+        ObservationEntry.IsEnabled = false;
+        PatientPicker.IsEnabled = false;
+        StatusPicker.IsEnabled = false;
+        DiagnosticButton.IsEnabled = false;
+        CreateButton.IsVisible = false;
+
+        lblTitle.Text = "Your Diagnostic";
     }
 }

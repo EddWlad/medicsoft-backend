@@ -5,10 +5,10 @@
              NavigationPage.HasNavigationBar="False"
              Title="Usuarios">
 
-    
 
 
-    <StackLayout Padding="10">
+    <ScrollView>
+        <StackLayout Padding="10">
 
         <HorizontalStackLayout Spacing="10">
             <SearchBar Placeholder="Buscar usuario..." 
@@ -17,7 +17,7 @@
 
         </HorizontalStackLayout>
 
-        <ScrollView>
+       
             <CollectionView ItemsSource="{Binding UsersList}"
                         VerticalOptions="FillAndExpand">
             <CollectionView.ItemTemplate>
@@ -50,8 +50,8 @@
             </CollectionView.ItemTemplate>
         </CollectionView>
             
-       </ScrollView>
+       
    </StackLayout>
-
+    </ScrollView>
 
 </ContentPage>

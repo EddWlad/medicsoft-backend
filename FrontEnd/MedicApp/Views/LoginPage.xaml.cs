@@ -2,6 +2,8 @@
 
 using System.Text.Json;
 using System.Text;
+using MedicApp.Services;
+using MedicApp.DTO_s;
 
 namespace MedicApp.Views;
 
@@ -12,9 +14,40 @@ public partial class LoginPage : ContentPage
 		InitializeComponent();
 	}
 
+    private async Task<UserDTO> Login(string email, string password)
+    {
+        try
+        {
+            var client = new HttpClient();
+            var backendUrl = "http://10.0.2.2:5000/api/user/login";
 
+            var loginData = new
+            {
+                email = email,
+                password = password
+            };
 
-    private void LoginButton_Clicked(object sender, EventArgs e)
+            var json = JsonSerializer.Serialize(loginData);
+            var content = new StringContent(json, Encoding.UTF8, "application/json");
+
+            var response = await client.PostAsync(backendUrl, content);
+
+            if (response.IsSuccessStatusCode)
+            {
+                var responseContent = await response.Content.ReadAsStringAsync();
+                // Deserializamos la respuesta para obtener el objeto UserDTO
+                return JsonSerializer.Deserialize<UserDTO>(responseContent);
+            }
+        }
+        catch (Exception ex)
+        {
+            await DisplayAlert("Error", $"Ocurrió un error: {ex.Message}", "OK");
+        }
+
+        return null;
+    }
+
+    private async void LoginButton_Clicked(object sender, EventArgs e)
     {
         Console.WriteLine("Login button clicked!");
         string email = EmailEntry.Text;
@@ -27,72 +60,21 @@ public partial class LoginPage : ContentPage
             return;
         }
 
-        bool isSuccess = Login(email, password);
 
-        if (isSuccess)
+        UserDTO user = await Login(email, password);
+
+        if (user != null)
         {
-            DisplayAlert("Éxito", "Login exitoso", "OK");
-            Application.Current.MainPage = new AppShell();
 
+            SessionService.Instance.SetUser(user);
+
+            await DisplayAlert("Éxito", "Login exitoso", "OK");
+            Application.Current.MainPage = new AppShell();
         }
         else
         {
-            DisplayAlert("Error", "Email o contraseña incorrectos", "OK");
+            await DisplayAlert("Error", "Email o contraseña incorrectos", "OK");
         }
-    }
-
-    bool Login(string email, string password)
-    {
-        try
-        {
-
-            var client = new HttpClient();
-            var backendUrl = "http://10.0.2.2:5000/api/user/login";
-
-            Console.WriteLine($"Enviando solicitud de login con email: {email}");
-
-            var loginData = new
-            {
-                email = email,
-                password = password
-            };
-
-            var json = JsonSerializer.Serialize(loginData);
-            var content = new StringContent(json, Encoding.UTF8, "application/json");
-
-            var response = client.PostAsync(backendUrl, content).Result;
-
-            if (response.IsSuccessStatusCode)
-            {
-                var responseContent = response.Content.ReadAsStringAsync().Result;
-
-
-                if (responseContent.Contains("Login successful"))
-                {
- 
-                    return true;
-                }
-                else
-                {
-                    Console.WriteLine("Login exitoso, datos de usuario: " + responseContent);
-                    return true;
-                }
-            }
-            else if (response.StatusCode == System.Net.HttpStatusCode.Unauthorized)
-            {
-                Console.WriteLine("Contraseña incorrecta");
-            }
-            else if (response.StatusCode == System.Net.HttpStatusCode.NotFound)
-            {
-                Console.WriteLine("Usuario no encontrado");
-            }
-        }
-        catch (Exception ex)
-        {
-            DisplayAlert("Error", $"Ocurrió un error: {ex.Message}", "OK");
-        }
-
-        return false;
     }
 
     private void CreateButton_Clicked(object sender, EventArgs e)
@@ -100,9 +82,6 @@ public partial class LoginPage : ContentPage
         Navigation.PushAsync(new CreateAccountPage());
     }
 
-    protected override bool OnBackButtonPressed()
-    {
-        return true;
-    }
+    protected override bool OnBackButtonPressed() => true;
 
 }

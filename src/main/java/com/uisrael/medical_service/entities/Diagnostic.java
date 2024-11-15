@@ -43,6 +43,8 @@ public class Diagnostic {
     @Column(nullable = false, columnDefinition = "Integer default 1")
     private Integer status;
 
+    private Boolean isNew;
+
     @ManyToOne
     @ToString.Exclude
     @JoinColumn(name = "patient_id", nullable = true)

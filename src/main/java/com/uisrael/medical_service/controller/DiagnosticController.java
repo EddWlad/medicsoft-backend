@@ -77,6 +77,7 @@ public class DiagnosticController {
                 .diagnostic(diagnosticDTO.getDiagnostic())
                 .observation(diagnosticDTO.getObservation())
                 .status(diagnosticDTO.getStatus())
+                .isNew(true)
                 .build());
 
         return ResponseEntity.created(new URI("/api/diagnostic/save")).build();
@@ -97,6 +98,20 @@ public class DiagnosticController {
             return  ResponseEntity.ok("Diagnostico Actualizado");
         }
         return ResponseEntity.notFound().build();
+    }
+
+    @GetMapping("/byPatient")
+    public ResponseEntity<List<DiagnosticDTO>> getDiagnosticsByPatient(
+            @RequestParam String name,
+            @RequestParam String lastName) {
+        List<DiagnosticDTO> diagnostics = diagnosticService.findDiagnosticsByPatientNameAndLastName(name, lastName);
+        return ResponseEntity.ok(diagnostics);
+    }
+
+    @PutMapping("/markAsSeen/{patientId}")
+    public ResponseEntity<?> markDiagnosticsAsSeen(@PathVariable Long patientId) {
+        diagnosticService.markAllAsSeenByPatientId(patientId);
+        return ResponseEntity.ok("Diagnósticos marcados como vistos");
     }
 
     @DeleteMapping("/delete/{id}")

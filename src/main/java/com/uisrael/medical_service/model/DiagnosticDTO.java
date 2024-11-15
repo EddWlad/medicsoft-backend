@@ -22,4 +22,5 @@ public class DiagnosticDTO {
     private String observation;
     private Integer status;
     private Patient patient;
+    private boolean isNew = true;
 }

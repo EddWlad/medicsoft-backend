@@ -5,7 +5,7 @@
              NavigationPage.HasNavigationBar="False"
              Title="Pacientes">
 
-
+    <ScrollView>
     <StackLayout Padding="10">
 
         <HorizontalStackLayout Spacing="10">
@@ -20,7 +20,7 @@
                 BackgroundColor="DarkGreen"
                 TextColor="White"
                 Clicked="btnCreate_Clicked"/>
-        <ScrollView>
+        
             <CollectionView ItemsSource="{Binding PatientsList}"
                         VerticalOptions="FillAndExpand">
                 <CollectionView.ItemTemplate>
@@ -52,7 +52,7 @@
                 </CollectionView.ItemTemplate>
             </CollectionView>
 
-        </ScrollView>
+        
     </StackLayout>
-
+    </ScrollView>
 </ContentPage>
