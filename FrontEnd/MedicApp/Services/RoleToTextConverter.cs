@@ -17,7 +17,7 @@ namespace MedicApp.Services
             {
                 return role == "Paciente" ? "Ver" : "Editar";
             }
-            return parameter?.ToString() ?? "Editar"; // Texto por defecto para otros roles
+            return parameter?.ToString() ?? "Editar";
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
