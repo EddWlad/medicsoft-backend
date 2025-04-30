@@ -1,30 +1,32 @@
 package com.uisrael.medical_service.entities;
 
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.*;
+import org.hibernate.annotations.GenericGenerator;
 
 import java.util.Date;
+import java.util.UUID;
 
-//@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
+
 @Entity
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
 @Builder
+@EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @Table(name= "diagnostic")
-
 public class Diagnostic {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @GeneratedValue(generator = "UUID")
+    @GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
+    @Column(updatable = false, nullable = false, columnDefinition = "uuid")
+    @EqualsAndHashCode.Include
+    private UUID idDiagnostic;
 
     @Temporal(TemporalType.DATE)
     private Date diagnosticDate;
@@ -48,6 +50,5 @@ public class Diagnostic {
     @ManyToOne
     @ToString.Exclude
     @JoinColumn(name = "patient_id", nullable = true)
-    //@JsonBackReference
     private Patient patient;
 }

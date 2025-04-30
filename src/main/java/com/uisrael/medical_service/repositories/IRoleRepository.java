@@ -2,12 +2,13 @@ package com.uisrael.medical_service.repositories;
 
 
 import com.uisrael.medical_service.entities.Role;
-import org.springframework.data.jpa.repository.JpaRepository;
+
 import org.springframework.stereotype.Repository;
 
-import java.util.List;
+import java.util.UUID;
+
 
 @Repository
-public interface IRoleRepository extends JpaRepository<Role,Long> {
-    List<Role> findByStatusNot(Integer status);
+public interface IRoleRepository extends IGenericRepository<Role, UUID> {
+
 }

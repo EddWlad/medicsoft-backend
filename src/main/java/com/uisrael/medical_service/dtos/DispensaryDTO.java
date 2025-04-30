@@ -7,13 +7,14 @@ import com.uisrael.medical_service.entities.User;
 import lombok.*;
 
 import java.util.Date;
+import java.util.UUID;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
 public class DispensaryDTO {
-    private Long id;
+    private UUID idDispensary;
     private Date dispensayDate;
     private Double quantity;
     private Patient patient;

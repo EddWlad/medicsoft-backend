@@ -7,6 +7,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.util.Date;
+import java.util.UUID;
 
 @Data
 @AllArgsConstructor
@@ -15,7 +16,7 @@ import java.util.Date;
 
 public class DiagnosticDTO {
 
-    private Long id;
+    private UUID idDiagnostic;
     private Date diagnosticDate;
     private String symptoms;
     private String diagnostic;

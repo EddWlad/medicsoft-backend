@@ -9,23 +9,27 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.*;
+import org.hibernate.annotations.GenericGenerator;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 //@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
-@Entity
 @Data
-@Builder
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
-@Table(name= "medicine")
-
+@Entity
+@Builder
+@Table(name = "medicine")
 public class Medicine {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @GeneratedValue(generator = "UUID")
+    @GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
+    @Column(updatable = false, nullable = false, columnDefinition = "uuid")
+    @EqualsAndHashCode.Include
+    private UUID idMedicine;
 
     @Column(columnDefinition = "TEXT")
     private String photo;

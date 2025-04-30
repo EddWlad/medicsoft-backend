@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 
 
 import java.util.Date;
+import java.util.UUID;
 
 @Data
 @AllArgsConstructor
@@ -15,7 +16,7 @@ import java.util.Date;
 @Builder
 public class UserDTO {
 
-    private Long id;
+    private UUID idUser;
     private Date dateCreate = new Date();
     private String identification;
     private String name;

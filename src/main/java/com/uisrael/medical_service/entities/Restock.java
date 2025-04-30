@@ -8,22 +8,27 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.*;
+import org.hibernate.annotations.GenericGenerator;
 
 import java.util.Date;
+import java.util.UUID;
 
 //@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
-@Entity
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
+@Entity
 @Builder
-@Table(name= "restock")
+@Table(name = "restock")
 public class Restock {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @GeneratedValue(generator = "UUID")
+    @GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
+    @Column(updatable = false, nullable = false, columnDefinition = "uuid")
+    @EqualsAndHashCode.Include
+    private UUID idRestock;
 
     @Temporal(TemporalType.DATE)
     private Date restockDate;

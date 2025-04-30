@@ -5,12 +5,14 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.UUID;
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
 public class PatientDTO {
-    private Long id;
+    private UUID idPatient;
     private String name;
     private String lastName;
     private String department;
