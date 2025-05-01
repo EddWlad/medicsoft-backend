@@ -4,13 +4,9 @@ import com.uisrael.medical_service.entities.Role;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
-public interface IRoleService {
-    List<Role> getAll();
+public interface IRoleService extends IGenericService<Role, UUID>{
 
-    Optional<Role> findById(Long id);
-    Role saveRole(Role role);
-    Role updateRole(Long id, Role role);
-    public boolean deleteRole(Long id);
     Long countRole();
 }

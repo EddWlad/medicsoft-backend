@@ -1,16 +1,11 @@
 package com.uisrael.medical_service.services;
 
 
-import com.uisrael.medical_service.entities.Patient;
+import com.uisrael.medical_service.entities.MedicalHistory;
 
-import java.util.List;
-import java.util.Optional;
+import java.util.UUID;
 
-public interface IPatientService {
-    List<Patient> getAll();
-    Optional<Patient> findById(Long id);
-    Patient savePatient(Patient patient);
-    Patient updatePatient(Long id, Patient patient);
-    public boolean deletePatient(Long id);
+public interface IPatientService extends IGenericService<MedicalHistory, UUID>{
+
     Long countPatient();
 }

@@ -1,6 +1,6 @@
 package com.uisrael.medical_service.controllers;
 
-import com.uisrael.medical_service.entities.Patient;
+import com.uisrael.medical_service.entities.MedicalHistory;
 import com.uisrael.medical_service.dtos.PatientDTO;
 import com.uisrael.medical_service.services.IPatientService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,9 +39,9 @@ public class PatientController {
     }
     @GetMapping("/find/{id}")
     public ResponseEntity<?> findById(@PathVariable Long id){
-        Optional<Patient> patientOptional = patientService.findById(id);
+        Optional<MedicalHistory> patientOptional = patientService.findById(id);
         if(patientOptional.isPresent()){
-            Patient patient = patientOptional.get();
+            MedicalHistory patient = patientOptional.get();
             PatientDTO patientDTO = PatientDTO.builder()
                     .id(patient.getId())
                     .name(patient.getName())
@@ -64,7 +64,7 @@ public class PatientController {
         if(patientDTO.getName().isBlank()){
             return ResponseEntity.badRequest().build();
         }
-        patientService.savePatient(Patient.builder()
+        patientService.savePatient(MedicalHistory.builder()
                 .id(patientDTO.getId())
                 .name(patientDTO.getName())
                 .lastName(patientDTO.getLastName())
@@ -81,9 +81,9 @@ public class PatientController {
 
     @PutMapping("update/{id}")
     public ResponseEntity<?> updatePatient(@PathVariable Long id, @RequestBody PatientDTO patientDTO ){
-        Optional<Patient> patientOptional = patientService.findById(id);
+        Optional<MedicalHistory> patientOptional = patientService.findById(id);
         if(patientOptional.isPresent()){
-            Patient patient = patientOptional.get();
+            MedicalHistory patient = patientOptional.get();
             patient.setName(patientDTO.getName());
             patient.setLastName(patientDTO.getLastName());
             patient.setDepartment(patientDTO.getDepartment());

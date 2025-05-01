@@ -1,9 +1,6 @@
 package com.uisrael.medical_service.entities;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+import com.fasterxml.jackson.annotation.*;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
@@ -12,6 +9,7 @@ import jakarta.validation.constraints.Size;
 import lombok.*;
 import org.hibernate.annotations.GenericGenerator;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -32,8 +30,8 @@ public class User {
     @EqualsAndHashCode.Include
     private UUID idUser;
 
-    @Temporal(TemporalType.DATE)
-    private Date dateCreate = new Date();
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss")
+    private LocalDateTime dateCreate = LocalDateTime.now();
 
     @NotBlank(message = "La identificación es requerida")
     @Size(min = 10, max = 13, message = "La identificación debe tener entre 10 y 13 dígitos")
@@ -47,10 +45,10 @@ public class User {
 
     @NotBlank
     @NotNull
-    @Size(min = 3, max = 35)
+    @Size(min = 3, max = 50)
     private String lastName;
 
-    @Column(nullable = false, unique = true)
+    @Column(nullable = false, length = 60, unique = true)
     private String username;
 
     @NotBlank(message = "El correo electrónico no debe estar vacío")
@@ -58,19 +56,16 @@ public class User {
     @Column(unique= true)
     private String email;
 
-    @Column(nullable = false)
+    @Column(nullable = false, length = 60)
     private String password;
 
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "role_id", nullable = false)
-    //@JsonBackReference
-    private Role role;
+    @Column(nullable = false)
+    private boolean enabled;
 
-    @Column(nullable = false, columnDefinition = "Integer default 1")
-    private Integer status;
+    @Column(nullable = false)
+    private Integer status = 1;
 
-    @OneToMany(mappedBy = "user",cascade=CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
-    @ToString.Exclude
-    //@JsonManagedReference
-    private List<Dispensary> dispensaries = new ArrayList<>();
+    @ManyToOne
+    @JoinColumn(name = "id_medical_history", foreignKey = @ForeignKey(name = "FK_MEDICAL_HISTORY"))
+    private MedicalHistory medicalHistory;
 }

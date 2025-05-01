@@ -31,42 +31,29 @@ public class Medicine {
     @EqualsAndHashCode.Include
     private UUID idMedicine;
 
-    @Column(columnDefinition = "TEXT")
+    @Column(nullable = true)
     private String photo;
 
-    @NotBlank
-    @NotNull
+    @Column(nullable = false)
     @Size(min = 3, max = 35)
     private String name;
 
-    @NotBlank
-    @NotNull
+    @Column(nullable = false)
     @Size(min = 3, max = 100)
     private String description;
 
-    @NotBlank
-    @NotNull
+    @Column(nullable = false)
     @Size(min = 3, max = 100)
     private String unitType;
 
-    @NotNull
+    @Column(nullable = false)
     private Double price;
 
-    @NotNull
+    @Column(nullable = false)
     private Double stock = 0.0;
 
     @Column(nullable = false, columnDefinition = "Integer default 1")
     private Integer status;
 
-    @JsonIgnore
-    @OneToMany(mappedBy = "medicine", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
-    //@JsonManagedReference
-    private List<Dispensary> dispensaries = new ArrayList<>();
-
-    @JsonIgnore
-    @OneToMany(mappedBy = "medicine", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
-    //@ToString.Exclude
-    //@JsonManagedReference
-    private List<Restock> restocks = new ArrayList<>();
 
 }

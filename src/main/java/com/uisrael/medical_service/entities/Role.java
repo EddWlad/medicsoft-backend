@@ -35,12 +35,6 @@ public class Role {
     @Column
     private String description;
 
-    @JsonIgnore
-    @OneToMany(mappedBy = "role",cascade=CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
-    //@ToString.Exclude
-    //@JsonManagedReference
-    private List<User> users = new ArrayList<>();
-
-    @Column(nullable = false, columnDefinition = "Integer default 1")
-    private Integer status;
+    @Column(nullable = false)
+    private Integer status = 1;
 }

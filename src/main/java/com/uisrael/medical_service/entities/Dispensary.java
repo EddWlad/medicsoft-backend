@@ -6,6 +6,7 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.*;
+import org.hibernate.annotations.GenericGenerator;
 
 import java.util.Date;
 
@@ -19,8 +20,11 @@ import java.util.Date;
 @Table(name= "dispensary")
 public class Dispensary {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @GeneratedValue(generator = "UUID")
+    @GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
+    @Column(updatable = false, nullable = false, columnDefinition = "uuid")
+    @EqualsAndHashCode.Include
+    private Long idDispensary;
 
     @Temporal(TemporalType.DATE)
     private Date dispensayDate;
@@ -30,21 +34,8 @@ public class Dispensary {
 
     @ManyToOne
     @ToString.Exclude
-    @JoinColumn(name = "patient_id", nullable = false)
-    //@JsonBackReference
-    private Patient patient;
-
-    @ManyToOne
-    @ToString.Exclude
     @JoinColumn(name = "medicine_id", nullable = false)
-    //@JsonBackReference
     private Medicine medicine;
-
-    @ManyToOne
-    @ToString.Exclude
-    @JoinColumn(name = "user_id", nullable = false)
-    //@JsonBackReference
-    private User user;
 
     @Size(min = 3, max = 300)
     private String observation;

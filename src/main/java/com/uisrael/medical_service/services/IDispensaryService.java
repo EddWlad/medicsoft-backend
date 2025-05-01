@@ -7,20 +7,17 @@ import com.uisrael.medical_service.entities.Dispensary;
 import java.io.ByteArrayInputStream;
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
-public interface IDispensaryService {
-    List<Dispensary> getAll();
-    Optional<Dispensary> findById(Long id);
-    Dispensary saveDispensary(Dispensary dispensary);
-    Dispensary updateDispensary(Long id, Dispensary dispensary);
-    public boolean deleteDispensary(Long id);
+public interface IDispensaryService extends IGenericService<Dispensary, UUID> {
+
     Long countDispensary();
 
-    public boolean dispensaryMedicine(Long id);
+    public boolean dispensaryMedicine(UUID id);
 
-    public boolean dispensaryMedicine(Long id,double previousQuantity);
+    public boolean dispensaryMedicine(UUID id,double previousQuantity);
 
     ByteArrayInputStream generatePdfReport() throws DocumentException;
 
-    ByteArrayInputStream generatePdfReportForDispensary(Long id) throws Exception;
+    ByteArrayInputStream generatePdfReportForDispensary(UUID id) throws Exception;
 }

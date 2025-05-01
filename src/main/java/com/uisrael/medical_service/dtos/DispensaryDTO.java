@@ -1,7 +1,7 @@
 package com.uisrael.medical_service.dtos;
 
 import com.uisrael.medical_service.entities.Medicine;
-import com.uisrael.medical_service.entities.Patient;
+import com.uisrael.medical_service.entities.MedicalHistory;
 import com.uisrael.medical_service.entities.User;
 
 import lombok.*;
@@ -17,7 +17,7 @@ public class DispensaryDTO {
     private UUID idDispensary;
     private Date dispensayDate;
     private Double quantity;
-    private Patient patient;
+    private MedicalHistory patient;
     private Medicine medicine;
     private User user;
     private String observation;

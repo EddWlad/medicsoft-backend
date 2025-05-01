@@ -1,6 +1,7 @@
 package com.uisrael.medical_service.entities;
 
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
@@ -10,6 +11,7 @@ import jakarta.validation.constraints.Size;
 import lombok.*;
 import org.hibernate.annotations.GenericGenerator;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.UUID;
 
@@ -30,14 +32,8 @@ public class Restock {
     @EqualsAndHashCode.Include
     private UUID idRestock;
 
-    @Temporal(TemporalType.DATE)
-    private Date restockDate;
-
-    @ManyToOne
-    @ToString.Exclude
-    @JoinColumn(name = "medicine_id", nullable = false)
-    //@JsonBackReference
-    private Medicine medicine;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss")
+    private LocalDateTime restockDate = LocalDateTime.now();
 
     @NotNull
     private Double quantity;

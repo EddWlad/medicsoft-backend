@@ -1,7 +1,9 @@
 package com.uisrael.medical_service.entities;
 
 
+
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -9,47 +11,50 @@ import jakarta.validation.constraints.Size;
 import lombok.*;
 import org.hibernate.annotations.GenericGenerator;
 
+
 import java.time.LocalDateTime;
-import java.util.Date;
-import java.util.UUID;
+import java.util.ArrayList;
+import java.util.List;
 
 
-@Entity
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
+@Entity
 @Builder
-@EqualsAndHashCode(onlyExplicitlyIncluded = true)
-@Table(name= "diagnostic")
-public class Diagnostic {
+@Table(name = "medical_history")
+public class MedicalHistory {
     @Id
     @GeneratedValue(generator = "UUID")
     @GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
     @Column(updatable = false, nullable = false, columnDefinition = "uuid")
     @EqualsAndHashCode.Include
-    private UUID idDiagnostic;
-
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss")
-    private LocalDateTime diagnosticDate = LocalDateTime.now();
+    private Long idMedicalHistory;
 
     @Column(nullable = false)
-    @Size(min = 3, max = 500)
-    private String symptoms;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss")
+    private LocalDateTime birthDate;
 
-    @Size(min = 3, max = 900)
-    private String diagnostic;
+    @Column(nullable = false)
+    private Integer gender;
 
-    @Size(min = 3, max = 600)
+    @Column(nullable = false)
+    private Float weight;
+
+    @Column(nullable = false)
+    private Float size;
+
+    @Column(nullable = false)
+    private Integer year;
+
+    @Column(nullable = false)
+    private String allergies;
+
+    @Size(min = 3, max = 300)
     private String observation;
 
-    @Column(nullable = false, columnDefinition = "Integer default 1")
-    private Integer status;
-
-    private Boolean isNew;
-
-    @ManyToOne
-    @JoinColumn(name = "id_user", foreignKey = @ForeignKey(name = "FK_USER"))
-    private User user;
+    @Column(nullable = false)
+    private Integer status = 1;
 
 }

@@ -7,4 +7,5 @@ public interface IGenericService<T,ID>{
     T findById(ID id) throws Exception;
     T save(T t) throws Exception;
     public boolean delete (ID id) throws Exception;
+
 }

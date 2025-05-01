@@ -15,7 +15,7 @@ import java.util.Optional;
 @RestController
 @RequestMapping("/api/diagnostic")
 public class DiagnosticController {
-    @Autowired
+    /*@Autowired
     private IDiagnosticService diagnosticService;
 
     @GetMapping("/findAll")
@@ -123,5 +123,5 @@ public class DiagnosticController {
         else{
             return ResponseEntity.badRequest().build();
         }
-    }
+    }*/
 }
