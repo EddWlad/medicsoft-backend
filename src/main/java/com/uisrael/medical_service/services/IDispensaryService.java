@@ -13,11 +13,11 @@ public interface IDispensaryService extends IGenericService<Dispensary, UUID> {
 
     Long countDispensary();
 
-    public boolean dispensaryMedicine(UUID id);
+    /*public boolean dispensaryMedicine(UUID id);
 
     public boolean dispensaryMedicine(UUID id,double previousQuantity);
 
     ByteArrayInputStream generatePdfReport() throws DocumentException;
 
-    ByteArrayInputStream generatePdfReportForDispensary(UUID id) throws Exception;
+    ByteArrayInputStream generatePdfReportForDispensary(UUID id) throws Exception;*/
 }

@@ -13,7 +13,7 @@ import java.util.UUID;
 
 @Repository
 public interface IMedicineRepository extends IGenericRepository<Medicine,UUID> {
-    List<Medicine> findByStatusNot(Integer status);
+    /*List<Medicine> findByStatusNot(Integer status);
     @Modifying
     @Query("UPDATE Medicine m SET m.stock = m.stock + :quantity WHERE m.id = :medicineId")
     void updateStock(@Param("medicineId") UUID medicineId, @Param("quantity") Double quantity);
@@ -24,5 +24,5 @@ public interface IMedicineRepository extends IGenericRepository<Medicine,UUID> {
 
     @Modifying
     @Query("UPDATE Medicine m SET m.stock = m.stock + :quantity WHERE m.id = :medicineId")
-    int increaseStock(@Param("medicineId") UUID medicineId, @Param("quantity") Double quantity);
+    int increaseStock(@Param("medicineId") UUID medicineId, @Param("quantity") Double quantity);*/
 }

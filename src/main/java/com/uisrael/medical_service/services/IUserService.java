@@ -12,5 +12,5 @@ public interface IUserService extends IGenericService<User, UUID> {
 
     Long countUser();
 
-    Optional<User> findByEmail(String email);
+    /*Optional<User> findByEmail(String email);*/
 }

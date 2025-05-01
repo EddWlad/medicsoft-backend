@@ -38,7 +38,7 @@ public class DispensaryServiceImpl extends GenericServiceImpl<Dispensary, UUID> 
         return dispensaryRepository.count();
     }
 
-    @Override
+    /*@Override
     @Transactional
     public boolean dispensaryMedicine(UUID id) {
         Dispensary dispensaryDb = dispensaryRepository.findById(id).orElse(null);
@@ -135,7 +135,7 @@ public class DispensaryServiceImpl extends GenericServiceImpl<Dispensary, UUID> 
         }
 
         return new ByteArrayInputStream(out.toByteArray());
-    }
+    }*/
 
 
 }

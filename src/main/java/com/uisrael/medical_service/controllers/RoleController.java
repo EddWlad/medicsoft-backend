@@ -18,7 +18,7 @@ import java.util.Optional;
 @RestController
 @RequestMapping("api/role")
 public class RoleController {
-    @Autowired
+    /*@Autowired
     private IRoleService roleService;
 
     @GetMapping("/findAll")
@@ -92,5 +92,5 @@ public class RoleController {
         else{
             return ResponseEntity.badRequest().build();
         }
-    }
+    }*/
 }

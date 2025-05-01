@@ -15,7 +15,7 @@ import java.util.Optional;
 @RestController
 @RequestMapping("api/patient")
 public class PatientController {
-    @Autowired
+    /*@Autowired
     private IPatientService patientService;
 
     @GetMapping("/findAll")
@@ -108,5 +108,5 @@ public class PatientController {
         else{
             return ResponseEntity.badRequest().build();
         }
-    }
+    }*/
 }

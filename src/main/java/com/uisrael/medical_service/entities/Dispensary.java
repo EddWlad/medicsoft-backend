@@ -1,6 +1,7 @@
 package com.uisrael.medical_service.entities;
 
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 
 import jakarta.validation.constraints.NotNull;
@@ -8,7 +9,9 @@ import jakarta.validation.constraints.Size;
 import lombok.*;
 import org.hibernate.annotations.GenericGenerator;
 
+import java.time.LocalDateTime;
 import java.util.Date;
+import java.util.UUID;
 
 @Entity
 @Data
@@ -24,18 +27,12 @@ public class Dispensary {
     @GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
     @Column(updatable = false, nullable = false, columnDefinition = "uuid")
     @EqualsAndHashCode.Include
-    private Long idDispensary;
+    private UUID idDispensary;
 
-    @Temporal(TemporalType.DATE)
-    private Date dispensayDate;
-
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss")
+    private LocalDateTime dispensaryCreate = LocalDateTime.now();
     @NotNull
     private Double quantity;
-
-    @ManyToOne
-    @ToString.Exclude
-    @JoinColumn(name = "medicine_id", nullable = false)
-    private Medicine medicine;
 
     @Size(min = 3, max = 300)
     private String observation;

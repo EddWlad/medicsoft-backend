@@ -20,7 +20,7 @@ import java.util.Optional;
 @RestController
 @RequestMapping("api/dispensary")
 public class DispensaryController {
-    @Autowired
+    /*@Autowired
     private IDispensaryService dispensaryService;
     @GetMapping("/findAll")
     public ResponseEntity<?> findAll(){
@@ -168,5 +168,5 @@ public class DispensaryController {
         else{
             return  ResponseEntity.badRequest().build();
         }
-    }
+    }*/
 }

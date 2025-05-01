@@ -21,7 +21,7 @@ import java.util.stream.Collectors;
 public class DiagnosticServiceImpl extends GenericServiceImpl<Diagnostic, UUID> implements IDiagnosticService {
 
     private final IDiagnosticRepository diagnosticRepository;
-    private final ChatClient chatClient;
+    /*private final ChatClient chatClient;*/
 
     @Override
     protected IGenericRepository<Diagnostic, UUID> getRepo() {

@@ -32,7 +32,7 @@ public class RestockServiceImpl extends GenericServiceImpl<Restock, UUID> implem
         return restockRepository.count();
     }
 
-    @Override
+    /*@Override
     @Transactional
     public boolean restockMedicine(UUID id) {
         Restock restockDb = restockRepository.findById(id).orElse(null);
@@ -54,7 +54,7 @@ public class RestockServiceImpl extends GenericServiceImpl<Restock, UUID> implem
         } else {
             return false;
         }
-    }
+    }*/
 
 
 }

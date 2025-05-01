@@ -18,7 +18,7 @@ import java.util.Optional;
 @RestController
 @RequestMapping("api/restock")
 public class RestockController {
-    @Autowired
+    /*@Autowired
     private IRestockService restockService;
 
     @GetMapping("/findAll")
@@ -113,5 +113,5 @@ public class RestockController {
         else{
             return ResponseEntity.badRequest().build();
         }
-    }
+    }*/
 }

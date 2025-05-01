@@ -10,10 +10,10 @@ import java.util.UUID;
 public interface IDiagnosticService extends IGenericService<Diagnostic, UUID> {
 
     Long countDiagnostic();
-    String generateDiagnosticFromSymptoms(String symptoms);
+    /*String generateDiagnosticFromSymptoms(String symptoms);
 
     List<DiagnosticDTO> findDiagnosticsByPatientNameAndLastName(String name, String lastName);
 
-    void markAllAsSeenByPatientId(UUID idPatient);
+    void markAllAsSeenByPatientId(UUID idPatient);*/
 
 }

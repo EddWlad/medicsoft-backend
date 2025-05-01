@@ -11,6 +11,6 @@ public interface IRestockService extends IGenericService<Restock, UUID> {
 
     Long countRestock();
 
-    public boolean restockMedicine(UUID id);
-    public boolean restockMedicine(UUID id, double previousQuantity);
+    /*public boolean restockMedicine(UUID id);
+    public boolean restockMedicine(UUID id, double previousQuantity);*/
 }

@@ -29,10 +29,10 @@ public class UserServiceImpl extends GenericServiceImpl<User, UUID> implements I
         return userRepository.count();
     }
 
-    @Override
+    /*@Override
     public Optional<User> findByEmail(String email) {
         return userRepository.findByEmail(email);
-    }
+    }*/
 
 
 }
