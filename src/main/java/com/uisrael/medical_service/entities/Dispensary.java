@@ -29,14 +29,16 @@ public class Dispensary {
     @EqualsAndHashCode.Include
     private UUID idDispensary;
 
+    @Column(nullable = false)
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss")
     private LocalDateTime dispensaryCreate = LocalDateTime.now();
-    @NotNull
+
+    @Column(nullable = false)
     private Double quantity;
 
-    @Size(min = 3, max = 300)
+
     private String observation;
 
-    @Column(nullable = false, columnDefinition = "Integer default 1")
-    private Integer status;
+    @Column(nullable = false)
+    private Integer status = 1;
 }

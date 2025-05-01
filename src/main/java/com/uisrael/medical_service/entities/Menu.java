@@ -1,10 +1,10 @@
 package com.uisrael.medical_service.entities;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.GenericGenerator;
+
+import java.util.UUID;
 
 
 @Entity
@@ -17,8 +17,11 @@ import lombok.*;
 @Table(name = "menu")
 public class Menu {
     @Id
+    @GeneratedValue(generator = "UUID")
+    @GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
+    @Column(updatable = false, nullable = false, columnDefinition = "uuid")
     @EqualsAndHashCode.Include
-    private Long idMenu;
+    private UUID idMenu;
 
     @Column(nullable = false, length = 20)
     private String icon;

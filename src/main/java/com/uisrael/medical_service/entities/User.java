@@ -33,19 +33,13 @@ public class User {
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss")
     private LocalDateTime dateCreate = LocalDateTime.now();
 
-    @NotBlank(message = "La identificación es requerida")
-    @Size(min = 10, max = 13, message = "La identificación debe tener entre 10 y 13 dígitos")
-    @Column(unique= true)
+    @Column(nullable = false)
     private String identification;
 
-    @NotBlank
-    @NotNull
-    @Size(min = 3, max = 50)
+    @Column(nullable = false)
     private String name;
 
-    @NotBlank
-    @NotNull
-    @Size(min = 3, max = 50)
+    @Column(nullable = false)
     private String lastName;
 
     @Column(nullable = false, length = 60, unique = true)

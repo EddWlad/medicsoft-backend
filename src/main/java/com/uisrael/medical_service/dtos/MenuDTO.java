@@ -1,27 +1,23 @@
 package com.uisrael.medical_service.dtos;
 
-
-
-import jakarta.validation.constraints.Size;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 
 import java.util.UUID;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Builder
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
-public class RoleDTO {
+public class MenuDTO {
     @EqualsAndHashCode.Include
-    private UUID idRole;
+    private UUID idMenu;
 
-    @Size(min = 3, max = 50)
+    private String icon;
     private String name;
-
-    @Size(min = 3, max = 600)
-    private String description;
-
+    private String url;
     private Integer status = 1;
-
 }
+

@@ -1,16 +1,6 @@
 package com.uisrael.medical_service.controllers;
 
-import com.uisrael.medical_service.entities.MedicalHistory;
-import com.uisrael.medical_service.dtos.PatientDTO;
-import com.uisrael.medical_service.services.IPatientService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.net.URI;
-import java.net.URISyntaxException;
-import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("api/patient")

@@ -32,7 +32,7 @@ public class Role {
     @Column(nullable = false, unique = true)
     private String name;
 
-    @Column
+    @Column(nullable = false)
     private String description;
 
     @Column(nullable = false)

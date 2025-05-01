@@ -35,25 +35,22 @@ public class Medicine {
     private String photo;
 
     @Column(nullable = false)
-    @Size(min = 3, max = 35)
     private String name;
 
     @Column(nullable = false)
-    @Size(min = 3, max = 100)
     private String description;
 
     @Column(nullable = false)
-    @Size(min = 3, max = 100)
     private String unitType;
 
     @Column(nullable = false)
     private Double price;
 
     @Column(nullable = false)
-    private Double stock = 0.0;
+    private Double stock;
 
-    @Column(nullable = false, columnDefinition = "Integer default 1")
-    private Integer status;
+    @Column(nullable = false)
+    private Integer status = 1;
 
 
 }

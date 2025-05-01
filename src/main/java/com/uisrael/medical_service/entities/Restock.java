@@ -38,9 +38,9 @@ public class Restock {
     @NotNull
     private Double quantity;
 
-    @Size(min = 3, max = 300)
+    @Column(nullable = false)
     private String observation;
 
-    @Column(nullable = false, columnDefinition = "Integer default 1")
-    private Integer status;
+    @Column(nullable = false)
+    private Integer status = 1;
 }

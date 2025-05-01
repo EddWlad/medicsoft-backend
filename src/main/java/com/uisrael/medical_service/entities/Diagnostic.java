@@ -34,17 +34,16 @@ public class Diagnostic {
     private LocalDateTime diagnosticDate = LocalDateTime.now();
 
     @Column(nullable = false)
-    @Size(min = 3, max = 500)
     private String symptoms;
 
-    @Size(min = 3, max = 900)
+    @Column(nullable = false)
     private String diagnostic;
 
-    @Size(min = 3, max = 600)
+    @Column(nullable = false)
     private String observation;
 
-    @Column(nullable = false, columnDefinition = "Integer default 1")
-    private Integer status;
+    @Column(nullable = false)
+    private Integer status = 1;
 
     private Boolean isNew;
 
