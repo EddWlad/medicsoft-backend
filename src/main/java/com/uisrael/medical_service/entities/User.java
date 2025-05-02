@@ -59,7 +59,7 @@ public class User {
     @Column(nullable = false)
     private Integer status = 1;
 
-    @ManyToOne
-    @JoinColumn(name = "id_medical_history", foreignKey = @ForeignKey(name = "FK_MEDICAL_HISTORY"))
+    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+    @JoinColumn(name = "id_medical_history", referencedColumnName = "idMedicalHistory", nullable = false)
     private MedicalHistory medicalHistory;
 }

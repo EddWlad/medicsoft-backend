@@ -58,4 +58,7 @@ public class MedicalHistory {
     @Column(nullable = false)
     private Integer status = 1;
 
+    @OneToOne(mappedBy = "medicalHistory")
+    private User user;
+
 }

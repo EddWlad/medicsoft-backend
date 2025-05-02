@@ -1,6 +1,8 @@
 package com.uisrael.medical_service.dtos;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.uisrael.medical_service.entities.MedicalHistory;
 import com.uisrael.medical_service.entities.Role;
 import jakarta.persistence.*;

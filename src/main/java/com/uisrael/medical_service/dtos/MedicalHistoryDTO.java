@@ -1,6 +1,10 @@
 package com.uisrael.medical_service.dtos;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.uisrael.medical_service.entities.User;
 import jakarta.persistence.Column;
 import jakarta.validation.constraints.Size;
 import lombok.*;
@@ -36,5 +40,8 @@ public class MedicalHistoryDTO {
     private String observation;
 
     private Integer status = 1;
+
+    @JsonIgnore
+    private User user;
 
 }
