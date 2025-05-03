@@ -14,4 +14,6 @@ public interface IUserService extends IGenericService<User, UUID> {
     Long countUser();
 
     User create(UserDTO dto) throws Exception;
+
+    boolean softDelete(UUID id) throws Exception;
 }

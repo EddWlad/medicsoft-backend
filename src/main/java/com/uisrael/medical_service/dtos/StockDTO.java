@@ -1,16 +1,13 @@
 package com.uisrael.medical_service.dtos;
 
-
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.uisrael.medical_service.entities.Medicine;
-
-import jakarta.validation.constraints.Min;
+import jakarta.persistence.Column;
 import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Size;
 import lombok.*;
 
 import java.time.LocalDateTime;
-import java.util.Date;
 import java.util.UUID;
 
 @Data
@@ -18,15 +15,20 @@ import java.util.UUID;
 @NoArgsConstructor
 @Builder
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
-public class RestockDTO {
+public class StockDTO {
     @EqualsAndHashCode.Include
-    private UUID idRestock;
+    private UUID idStock;
 
+    @Column(nullable = false)
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss")
-    private LocalDateTime restockDate = LocalDateTime.now();
+    private LocalDateTime lastUpdate = LocalDateTime.now();
 
-    @Size(min = 3, max = 300)
-    private String observation;
-
+    @NotNull(message = "El estado es obligatorio (1: activo, 2: inactivo, 0: eliminado)")
     private Integer status = 1;
+
+    @NotNull(message = "El ID del medicamento es obligatorio")
+    @JsonIgnoreProperties({"stock"})
+    private Medicine medicine;
+
+    private Integer quantity;
 }

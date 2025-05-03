@@ -20,6 +20,8 @@ public class DispensaryMedicine {
     @Id
     private Medicine medicine;
 
+    private Integer quantity;
+
     @Column(nullable = false)
     private Integer status = 1;
 }

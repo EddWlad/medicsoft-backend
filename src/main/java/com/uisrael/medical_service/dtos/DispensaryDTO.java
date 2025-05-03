@@ -24,8 +24,6 @@ public class DispensaryDTO {
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss")
     private LocalDateTime dispensaryCreate = LocalDateTime.now();
 
-    private Double quantity;
-
     @Size(min = 3, max = 300)
     private String observation;
 

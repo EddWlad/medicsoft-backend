@@ -7,6 +7,7 @@ import com.uisrael.medical_service.utils.MapperUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.hateoas.EntityModel;
 import org.springframework.hateoas.server.mvc.WebMvcLinkBuilder;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -64,9 +65,15 @@ public class UserController {
 
     // 📌 5️⃣ Eliminar un usuario (Soft Delete)
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> delete(@PathVariable("id") UUID id) throws Exception {
-        userService.delete(id);
-        return ResponseEntity.noContent().build();
+    public ResponseEntity<String> delete(@PathVariable("id") UUID id) throws Exception {
+        boolean deleted = userService.softDelete(id);
+
+        if (deleted) {
+            return ResponseEntity.ok("User and medical history deleted (soft) successfully.");
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body("User not found with ID: " + id);
+        }
     }
 
     // 📌 6️⃣ Obtener usuario con HATEOAS

@@ -9,20 +9,14 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 @Repository
 public interface IMedicineRepository extends IGenericRepository<Medicine,UUID> {
-    /*List<Medicine> findByStatusNot(Integer status);
-    @Modifying
-    @Query("UPDATE Medicine m SET m.stock = m.stock + :quantity WHERE m.id = :medicineId")
-    void updateStock(@Param("medicineId") UUID medicineId, @Param("quantity") Double quantity);
+    @Query("SELECT u FROM Medicine u WHERE u.name = :name AND u.status IN (1, 2)")
+    Optional<Medicine> findByNameStatus(@Param("name") String name);
 
-    @Modifying
-    @Query("UPDATE Medicine m SET m.stock = m.stock - :quantity WHERE m.id = :medicineId AND m.stock >= :quantity")
-    int reduceStock(@Param("medicineId") UUID medicineId, @Param("quantity") Double quantity);
-
-    @Modifying
-    @Query("UPDATE Medicine m SET m.stock = m.stock + :quantity WHERE m.id = :medicineId")
-    int increaseStock(@Param("medicineId") UUID medicineId, @Param("quantity") Double quantity);*/
+    @Query("SELECT u FROM Medicine u WHERE u.name = :name AND u.status = 0")
+    Optional<Medicine> findDeletedMedicine(@Param("name") String name);
 }

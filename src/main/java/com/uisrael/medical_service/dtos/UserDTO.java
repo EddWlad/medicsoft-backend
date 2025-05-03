@@ -2,6 +2,7 @@ package com.uisrael.medical_service.dtos;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.uisrael.medical_service.entities.MedicalHistory;
 import com.uisrael.medical_service.entities.Role;
@@ -57,6 +58,7 @@ public class UserDTO {
 
     private Integer status = 1;
 
+    @JsonIgnoreProperties({"user"})
     private MedicalHistory medicalHistory;
 
 }

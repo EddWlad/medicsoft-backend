@@ -1,9 +1,16 @@
 package com.uisrael.medical_service.controllers;
 
+import com.uisrael.medical_service.dtos.MedicineDTO;
 import com.uisrael.medical_service.entities.Medicine;
 import com.uisrael.medical_service.dtos.MedicineDTO;
+import com.uisrael.medical_service.entities.Medicine;
 import com.uisrael.medical_service.services.IMedicineService;
+import com.uisrael.medical_service.utils.MapperUtil;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.hateoas.EntityModel;
+import org.springframework.hateoas.server.mvc.WebMvcLinkBuilder;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -11,100 +18,78 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
+
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
+import static org.springframework.web.servlet.support.ServletUriComponentsBuilder.fromCurrentRequest;
 
 @RestController
-@RequestMapping("api/medicine")
+@RequestMapping("/medicines")
+@RequiredArgsConstructor
 public class MedicineController {
-    /*@Autowired
-    private IMedicineService medicineService;
+    private final IMedicineService medicineService;
+    private final MapperUtil mapperUtil;
 
-    @GetMapping("/findAll")
-    public ResponseEntity<?> findAll(){
-        List<MedicineDTO> medicineList = medicineService.getAll()
-                .stream()
-                .map(medicine -> MedicineDTO.builder()
-                        .id(medicine.getId())
-                        .photo(medicine.getPhoto())
-                        .name(medicine.getName())
-                        .description(medicine.getDescription())
-                        .unitType(medicine.getUnitType())
-                        .stock(medicine.getStock())
-                        .price(medicine.getPrice())
-                        .status(medicine.getStatus())
-
-                        .build())
-                .toList();
-        return ResponseEntity.ok(medicineList);
+    // 📌 1️⃣ Obtener todas las medicinas
+    @GetMapping
+    public ResponseEntity<List<MedicineDTO>> findAll() throws Exception  {
+        List<MedicineDTO> list = mapperUtil.mapList(medicineService.findAll(), MedicineDTO.class);
+        return ResponseEntity.ok(list);
     }
 
-    @GetMapping("/find/{id}")
-    public ResponseEntity<?> findById(@PathVariable long id){
-        Optional<Medicine> medicineOptional = medicineService.findById(id);
-        if(medicineOptional.isPresent()){
-            Medicine medicine = medicineOptional.get();
-            MedicineDTO medicineDTO = MedicineDTO.builder()
-                    .id(medicine.getId())
-                    .photo(medicine.getPhoto())
-                    .name(medicine.getName())
-                    .description(medicine.getDescription())
-                    .unitType(medicine.getUnitType())
-                    .stock(medicine.getStock())
-                    .price(medicine.getPrice())
-                    .status(medicine.getStatus())
-
-                    .build();
-            return ResponseEntity.ok(medicineDTO);
-        }
-        return ResponseEntity.notFound().build();
+    // 📌 2️⃣ Obtener un medicamento por ID
+    @GetMapping("/{id}")
+    public ResponseEntity<MedicineDTO> findById(@PathVariable("id") UUID id) throws Exception {
+        MedicineDTO obj = mapperUtil.map(medicineService.findById(id), MedicineDTO.class);
+        return ResponseEntity.ok(obj);
     }
 
-    @PostMapping("/save")
-    public ResponseEntity<?> saveMedicine(@RequestBody MedicineDTO medicineDTO) throws URISyntaxException{
-        if(medicineDTO.getName().isBlank()){
-            return ResponseEntity.badRequest().build();
-        }
-            medicineService.saveMedicine(Medicine.builder()
-                            .id(medicineDTO.getId())
-                            .photo(medicineDTO.getPhoto())
-                            .name(medicineDTO.getName())
-                            .description(medicineDTO.getDescription())
-                            .unitType(medicineDTO.getUnitType())
-                            .stock(medicineDTO.getStock())
-                            .price(medicineDTO.getPrice())
-                            .status(medicineDTO.getStatus())
+    // 📌 3️⃣ Crear un nuevo medicina
+    @PostMapping
+    public ResponseEntity<MedicineDTO> save(@RequestBody MedicineDTO medicineDTO) throws Exception {
+        Medicine obj = medicineService.create(medicineDTO);
 
-                    .build());
-            return ResponseEntity.created(new URI("/api/medicine/save")).build();
+        URI location = fromCurrentRequest()
+                .path("/{id}")
+                .buildAndExpand(obj.getIdMedicine())
+                .toUri();
+
+        return ResponseEntity.created(location).body(mapperUtil.map(obj, MedicineDTO.class));
     }
 
-    @PutMapping("/update/{id}")
-    public ResponseEntity<?> updateMedicine(@PathVariable Long id, @RequestBody MedicineDTO medicineDTO){
-        Optional<Medicine> medicineOptional = medicineService.findById(id);
-        if(medicineOptional.isPresent()){
-            Medicine medicine = medicineOptional.get();
-            medicine.setPhoto(medicineDTO.getPhoto());
-            medicine.setName(medicineDTO.getName());
-            medicine.setDescription(medicineDTO.getDescription());
-            medicine.setUnitType(medicineDTO.getUnitType());
-            medicine.setStock(medicineDTO.getStock());
-            medicine.setPrice(medicineDTO.getPrice());
-            medicine.setStatus(medicineDTO.getStatus());
-
-
-
-            medicineService.updateMedicine(id, medicine);
-            return ResponseEntity.ok("Medicamento actualizado");
-        }
-        return ResponseEntity.notFound().build();
+    // 📌 4️⃣ Actualizar una medicina
+    @PutMapping("/{id}")
+    public ResponseEntity<MedicineDTO> update(@PathVariable("id") UUID id, @RequestBody MedicineDTO MedicineDTO) throws Exception  {
+        Medicine obj = medicineService.update(mapperUtil.map(MedicineDTO, Medicine.class), id);
+        return ResponseEntity.ok(mapperUtil.map(obj, MedicineDTO.class));
     }
-    @DeleteMapping("/delete/{id}")
-    public ResponseEntity<?> deleteMedicine(@PathVariable Long id){
-        boolean result = medicineService.deleteMedicine(id);
-        if(result){
-            return ResponseEntity.ok("Medicamento eliminado");
+
+    // 📌 5️⃣ Eliminar una medicina (Soft Delete)
+    @DeleteMapping("/{id}")
+    public ResponseEntity<String> delete(@PathVariable("id") UUID id) throws Exception {
+        boolean deleted = medicineService.softDelete(id);
+
+        if (deleted) {
+            return ResponseEntity.ok("Medicine and its stock deleted (soft) successfully.");
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body("Medicine not found with ID: " + id);
         }
-        else{
-            return ResponseEntity.badRequest().build();
-        }
-    }*/
+    }
+
+    // 📌 6️⃣ Obtener medicina con HATEOAS
+    @GetMapping("/hateoas/{id}")
+    public EntityModel<MedicineDTO> findByIdHateoas(@PathVariable("id") UUID id) throws Exception {
+        Medicine obj = medicineService.findById(id);
+        EntityModel<MedicineDTO> resource = EntityModel.of(mapperUtil.map(obj, MedicineDTO.class));
+
+        WebMvcLinkBuilder link1 = linkTo(methodOn(this.getClass()).findById(id));
+        WebMvcLinkBuilder link2 = linkTo(methodOn(this.getClass()).findAll());
+
+        resource.add(link1.withRel("Medicine-self-info"));
+        resource.add(link2.withRel("Medicine-all-info"));
+        return resource;
+    }
+
 }

@@ -1,5 +1,7 @@
 package com.uisrael.medical_service.dtos;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.uisrael.medical_service.entities.Stock;
 import jakarta.validation.constraints.Size;
 import lombok.*;
 
@@ -27,6 +29,9 @@ public class MedicineDTO {
     private String unitType;
 
     private Double price;
-    private Double stock = 0.0;
+
+    @JsonIgnoreProperties({"medicine"})
+    private Stock stock;
+
     private Integer status = 1;
 }

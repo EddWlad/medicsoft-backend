@@ -47,10 +47,10 @@ public class Medicine {
     private Double price;
 
     @Column(nullable = false)
-    private Double stock;
-
-    @Column(nullable = false)
     private Integer status = 1;
 
+    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "id_stock", referencedColumnName = "idStock", foreignKey = @ForeignKey(name = "FK_USER"))
+    private Stock stock;
 
 }

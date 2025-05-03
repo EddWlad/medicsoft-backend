@@ -58,4 +58,23 @@ public class UserServiceImpl extends GenericServiceImpl<User, UUID> implements I
         return userRepository.save(user);
     }
 
+    @Override
+    public boolean softDelete(UUID id) throws Exception {
+        Optional<User> optionalUser = userRepository.findById(id);
+
+        if (optionalUser.isEmpty()) {
+            return false;
+        }
+
+        User user = optionalUser.get();
+        user.setStatus(0);
+
+        if (user.getMedicalHistory() != null) {
+            user.getMedicalHistory().setStatus(0);
+        }
+
+        userRepository.save(user); // CascadeType.ALL asegura que se actualice el historial también
+        return true;
+    }
+
 }
