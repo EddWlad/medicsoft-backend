@@ -3,12 +3,16 @@ package com.uisrael.medical_service.services.impl;
 
 import com.itextpdf.text.*;
 import com.itextpdf.text.pdf.PdfWriter;
+import com.uisrael.medical_service.dtos.DispensaryDTO;
+import com.uisrael.medical_service.dtos.DispensaryDetailDTO;
+import com.uisrael.medical_service.dtos.DispensaryDetailMedicineDTO;
+import com.uisrael.medical_service.dtos.MedicineDispensaryDetailDTO;
 import com.uisrael.medical_service.entities.Dispensary;
 import com.uisrael.medical_service.entities.Medicine;
-import com.uisrael.medical_service.repositories.IDispensaryRepository;
-import com.uisrael.medical_service.repositories.IGenericRepository;
-import com.uisrael.medical_service.repositories.IMedicineRepository;
+import com.uisrael.medical_service.entities.Stock;
+import com.uisrael.medical_service.repositories.*;
 import com.uisrael.medical_service.services.IDispensaryService;
+import com.uisrael.medical_service.utils.MapperUtil;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +20,8 @@ import org.springframework.stereotype.Service;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -25,7 +31,10 @@ import java.util.UUID;
 public class DispensaryServiceImpl extends GenericServiceImpl<Dispensary, UUID> implements IDispensaryService {
 
     private final IDispensaryRepository dispensaryRepository;
+    private final IDispensaryMedicineRepository dmRepo;
     private final IMedicineRepository medicineRepository;
+    private final IStockRepository stockRepository;
+    private final MapperUtil mapperUtil;
 
 
     @Override
@@ -33,109 +42,168 @@ public class DispensaryServiceImpl extends GenericServiceImpl<Dispensary, UUID> 
         return dispensaryRepository;
     }
 
-    @Override
-    public Long countDispensary() {
-        return dispensaryRepository.count();
-    }
-
-    /*@Override
     @Transactional
-    public boolean dispensaryMedicine(UUID id) {
-        Dispensary dispensaryDb = dispensaryRepository.findById(id).orElse(null);
-        if (dispensaryDb != null) {
-                medicineRepository.reduceStock(dispensaryDb.getMedicine().getIdMedicine(), dispensaryDb.getQuantity());
-                return true;
+    @Override
+    public Dispensary saveTransactional(Dispensary dispensary, List<DispensaryDetailDTO> medicines) throws Exception {
+        if (medicines == null || medicines.isEmpty()) {
+            throw new IllegalArgumentException("Debe incluir al menos una medicina para la dispensación.");
         }
-        return false;
+
+        dispensary.setDispensaryCreate(LocalDateTime.now());
+        dispensaryRepository.save(dispensary);
+
+        for (DispensaryDetailDTO dto : medicines) {
+            UUID medId = dto.getIdMedicine();
+            Integer cantidad = dto.getQuantity();
+
+            if (cantidad == null || cantidad <= 0) {
+                throw new IllegalArgumentException("Cantidad inválida para la medicina con ID: " + medId);
+            }
+
+            Medicine medicine = medicineRepository.findById(medId)
+                    .orElseThrow(() -> new IllegalArgumentException("Medicina no encontrada con ID: " + medId));
+
+            Stock stock = medicine.getStock();
+            if (stock == null) {
+                throw new IllegalStateException("La medicina con ID " + medId + " no tiene stock asociado.");
+            }
+
+            if (stock.getQuantity() < cantidad) {
+                throw new IllegalArgumentException("Stock insuficiente para medicina con ID: " + medId);
+            }
+
+            stock.setQuantity(stock.getQuantity() - cantidad);
+            stock.setLastUpdate(LocalDateTime.now());
+            stockRepository.save(stock);
+
+            dmRepo.saveMedicine(dispensary.getIdDispensary(), medId, cantidad);
+        }
+
+        return dispensary;
     }
 
     @Override
+    public DispensaryDetailMedicineDTO findWithMedicines(UUID id) throws Exception {
+        Dispensary dispensary = dispensaryRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Dispensación no encontrada con ID: " + id));
+
+        List<Object[]> result = dmRepo.findDispensaryDetails(id);
+        List<MedicineDispensaryDetailDTO> medicines = result.stream().map(obj -> {
+            MedicineDispensaryDetailDTO dto = new MedicineDispensaryDetailDTO();
+            dto.setIdMedicine(UUID.fromString(obj[0].toString()));
+            dto.setPhoto(obj[1] != null ? obj[1].toString() : null);
+            dto.setName(obj[2].toString());
+            dto.setQuantity(Integer.parseInt(obj[3].toString()));
+            dto.setDescription(obj[4] != null ? obj[4].toString() : null);
+            dto.setPrice(obj[5] != null ? Double.parseDouble(obj[5].toString()) : null);
+            return dto;
+        }).toList();
+
+        DispensaryDTO dispensaryDTO = mapperUtil.map(dispensary, DispensaryDTO.class);
+        return new DispensaryDetailMedicineDTO(dispensaryDTO, medicines);
+    }
+
+    @Override
+    public List<DispensaryDetailMedicineDTO> findAllWithMedicines() throws Exception {
+        List<Dispensary> dispensaries = super.findAll(); // Solo status ≠ 0
+        List<DispensaryDetailMedicineDTO> responseList = new ArrayList<>();
+
+        for (Dispensary dispensary : dispensaries) {
+            List<Object[]> result = dmRepo.findDispensaryDetails(dispensary.getIdDispensary());
+            List<MedicineDispensaryDetailDTO> medicines = result.stream().map(obj -> {
+                MedicineDispensaryDetailDTO dto = new MedicineDispensaryDetailDTO();
+                dto.setIdMedicine(UUID.fromString(obj[0].toString()));
+                dto.setPhoto(obj[1] != null ? obj[1].toString() : null);
+                dto.setName(obj[2].toString());
+                dto.setQuantity(Integer.parseInt(obj[3].toString()));
+                dto.setDescription(obj[4] != null ? obj[4].toString() : null);
+                dto.setPrice(obj[5] != null ? Double.parseDouble(obj[5].toString()) : null);
+                return dto;
+            }).toList();
+
+            DispensaryDTO dispensaryDTO = mapperUtil.map(dispensary, DispensaryDTO.class);
+            responseList.add(new DispensaryDetailMedicineDTO(dispensaryDTO, medicines));
+        }
+
+        return responseList;
+    }
+
     @Transactional
-    public boolean dispensaryMedicine(UUID id, double previousQuantity) {
-        Dispensary dispensaryDb = dispensaryRepository.findById(id).orElse(null);
-        if (dispensaryDb != null) {
-            double quantityDifference = dispensaryDb.getQuantity() - previousQuantity;
-
-            if (quantityDifference > 0) {
-                return medicineRepository.reduceStock(dispensaryDb.getMedicine().getIdMedicine(), quantityDifference) > 0;
-            }
-
-            else if (quantityDifference < 0) {
-                medicineRepository.increaseStock(dispensaryDb.getMedicine().getIdMedicine(), Math.abs(quantityDifference));
-                return true;
-            }
-            return true;
-        }
-        return false;
-    }
-
     @Override
-    public ByteArrayInputStream generatePdfReport() throws DocumentException {
-        Document document = new Document();
-        ByteArrayOutputStream out = new ByteArrayOutputStream();
+    public Dispensary updateTransactional(UUID id, Dispensary updatedDispensary, List<DispensaryDetailDTO> medicines) throws Exception {
+        Dispensary dispensary = dispensaryRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Dispensación no encontrada con ID: " + id));
 
-        List<Dispensary> dispensaries = dispensaryRepository.findAll();
+        // Revertir stock de las medicinas anteriores
+        List<Object[]> oldDetails = dmRepo.findDispensaryDetails(id);
+        for (Object[] obj : oldDetails) {
+            UUID medId = UUID.fromString(obj[0].toString());
+            int cantidadAnterior = Integer.parseInt(obj[3].toString());
 
-        try {
-            PdfWriter.getInstance(document, out);
-            document.open();
+            Medicine med = medicineRepository.findById(medId)
+                    .orElseThrow(() -> new IllegalArgumentException("Medicina no encontrada para revertir stock"));
+            Stock stock = med.getStock();
+            if (stock != null) {
+                stock.setQuantity(stock.getQuantity() + cantidadAnterior);
+                stock.setLastUpdate(LocalDateTime.now());
+                stockRepository.save(stock);
+            }
+        }
 
-            for (Dispensary dispensary : dispensaries) {
-                document.add(new Paragraph("Dispensary ID: " + dispensary.getIdDispensary()));
-                document.add(new Paragraph("Medicine Name: " + dispensary.getMedicine().getName()));
-                document.add(new Paragraph("Quantity: " + dispensary.getQuantity()));
-                document.add(new Paragraph("Patient: " + dispensary.getPatient().getName()));
-                document.add(new Paragraph("Dispensay Date: " + dispensary.getDispensayDate()));
-                document.add(new Paragraph("---------------------------------------------"));
+        // Eliminar relaciones antiguas
+        dmRepo.deleteByDispensaryId(id);
+
+        // Aplicar cambios nuevos
+        dispensary.setObservation(updatedDispensary.getObservation());
+        dispensaryRepository.save(dispensary);
+
+        for (DispensaryDetailDTO dto : medicines) {
+            UUID medId = dto.getIdMedicine();
+            Integer cantidad = dto.getQuantity();
+
+            Medicine medicine = medicineRepository.findById(medId)
+                    .orElseThrow(() -> new IllegalArgumentException("Medicina no encontrada"));
+
+            Stock stock = medicine.getStock();
+            if (stock == null || stock.getQuantity() < cantidad) {
+                throw new IllegalArgumentException("Stock insuficiente para actualizar la medicina: " + medId);
             }
 
-            document.close();
-        } catch (DocumentException e) {
-            throw new DocumentException("Error creating PDF");
+            stock.setQuantity(stock.getQuantity() - cantidad);
+            stock.setLastUpdate(LocalDateTime.now());
+            stockRepository.save(stock);
+
+            dmRepo.saveMedicine(id, medId, cantidad);
         }
 
-        return new ByteArrayInputStream(out.toByteArray());
+        return dispensary;
     }
 
-    public ByteArrayInputStream generatePdfReportForDispensary(UUID id) throws Exception {
-        Optional<Dispensary> dispensaryOptional = dispensaryRepository.findById(id);
-        if (!dispensaryOptional.isPresent()) {
-            throw new Exception("No se encontró la dispensación con ID: " + id);
+    @Transactional
+    @Override
+    public boolean softDeleteWithRollback(UUID id) throws Exception {
+        Dispensary dispensary = dispensaryRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Dispensación no encontrada"));
+
+        // Revertir stock de las medicinas dispensadas
+        List<Object[]> dispensed = dmRepo.findDispensaryDetails(id);
+        for (Object[] obj : dispensed) {
+            UUID medId = UUID.fromString(obj[0].toString());
+            int quantity = Integer.parseInt(obj[3].toString());
+
+            Medicine med = medicineRepository.findById(medId)
+                    .orElseThrow(() -> new IllegalArgumentException("Medicina no encontrada"));
+            Stock stock = med.getStock();
+            if (stock != null) {
+                stock.setQuantity(stock.getQuantity() + quantity);
+                stock.setLastUpdate(LocalDateTime.now());
+                stockRepository.save(stock);
+            }
         }
-        Dispensary dispensary = dispensaryOptional.get(); // Fetch the Dispensary object using the ID
-        return generatePdfForSingleDispensary(dispensary); // Pass the fetched object to the PDF generation method
+
+        dispensary.setStatus(0);
+        dispensaryRepository.save(dispensary);
+        return true;
     }
-
-    public ByteArrayInputStream generatePdfForSingleDispensary(Dispensary dispensary) {
-        Document document = new Document();
-        ByteArrayOutputStream out = new ByteArrayOutputStream();
-
-        try {
-            PdfWriter.getInstance(document, out);
-            document.open();
-
-            Font titleFont = FontFactory.getFont(FontFactory.HELVETICA_BOLD, 18);
-            Paragraph title = new Paragraph("Ticket de Dispensación", titleFont);
-            title.setAlignment(Element.ALIGN_CENTER);
-            document.add(title);
-            document.add(Chunk.NEWLINE);
-
-
-            Font normalFont = FontFactory.getFont(FontFactory.HELVETICA, 12);
-            document.add(new Paragraph("ID de Dispensación: " + dispensary.getIdDispensary(), normalFont));
-            document.add(new Paragraph("Paciente: " + dispensary.getPatient().getName() + " " + dispensary.getPatient().getLastName(), normalFont));
-            document.add(new Paragraph("Medicina: " + dispensary.getMedicine().getName(), normalFont));
-            document.add(new Paragraph("Cantidad: " + dispensary.getQuantity(), normalFont));
-            document.add(new Paragraph("Usuario: " + dispensary.getUser().getUsername(), normalFont));
-            document.add(new Paragraph("Fecha: " + dispensary.getDispensayDate(), normalFont));
-
-            document.close();
-        } catch (DocumentException ex) {
-            ex.printStackTrace();
-        }
-
-        return new ByteArrayInputStream(out.toByteArray());
-    }*/
-
 
 }

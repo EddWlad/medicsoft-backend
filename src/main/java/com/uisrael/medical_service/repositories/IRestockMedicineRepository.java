@@ -1,7 +1,8 @@
 package com.uisrael.medical_service.repositories;
 
-import com.uisrael.medical_service.entities.DispensaryMedicinePK;
+
 import com.uisrael.medical_service.entities.Restock;
+import com.uisrael.medical_service.entities.RestockMedicinePK;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -10,7 +11,7 @@ import org.springframework.data.repository.query.Param;
 import java.util.List;
 import java.util.UUID;
 
-public interface IRestockMedicineRepository extends IGenericRepository<Restock, DispensaryMedicinePK>{
+public interface IRestockMedicineRepository extends IGenericRepository<Restock, RestockMedicinePK>{
 
 
     @Modifying

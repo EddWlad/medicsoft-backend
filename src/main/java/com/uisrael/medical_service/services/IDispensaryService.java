@@ -1,6 +1,8 @@
 package com.uisrael.medical_service.services;
 
 import com.itextpdf.text.DocumentException;
+import com.uisrael.medical_service.dtos.DispensaryDetailDTO;
+import com.uisrael.medical_service.dtos.DispensaryDetailMedicineDTO;
 import com.uisrael.medical_service.entities.Dispensary;
 
 
@@ -11,13 +13,13 @@ import java.util.UUID;
 
 public interface IDispensaryService extends IGenericService<Dispensary, UUID> {
 
-    Long countDispensary();
+    Dispensary saveTransactional(Dispensary dispensary, List<DispensaryDetailDTO> medicines) throws Exception;
 
-    /*public boolean dispensaryMedicine(UUID id);
+    DispensaryDetailMedicineDTO findWithMedicines(UUID id) throws Exception;
 
-    public boolean dispensaryMedicine(UUID id,double previousQuantity);
+    List<DispensaryDetailMedicineDTO> findAllWithMedicines() throws Exception;
 
-    ByteArrayInputStream generatePdfReport() throws DocumentException;
+    Dispensary updateTransactional(UUID id, Dispensary dispensary, List<DispensaryDetailDTO> medicines) throws Exception;
 
-    ByteArrayInputStream generatePdfReportForDispensary(UUID id) throws Exception;*/
+    boolean softDeleteWithRollback(UUID id) throws Exception;
 }

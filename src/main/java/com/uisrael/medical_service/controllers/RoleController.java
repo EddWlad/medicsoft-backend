@@ -1,96 +1,88 @@
 package com.uisrael.medical_service.controllers;
 
-
-import com.uisrael.medical_service.entities.Role;
 import com.uisrael.medical_service.dtos.RoleDTO;
+import com.uisrael.medical_service.entities.Role;
 import com.uisrael.medical_service.services.IRoleService;
-import org.springframework.beans.factory.annotation.Autowired;
-
-
+import com.uisrael.medical_service.utils.MapperUtil;
+import lombok.RequiredArgsConstructor;
+import org.springframework.hateoas.EntityModel;
+import org.springframework.hateoas.server.mvc.WebMvcLinkBuilder;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
-import java.net.URISyntaxException;
 import java.util.List;
-import java.util.Optional;
+import java.util.UUID;
+
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 
 @RestController
-@RequestMapping("api/role")
+@RequestMapping("/roles")
+@RequiredArgsConstructor
 public class RoleController {
-    /*@Autowired
-    private IRoleService roleService;
 
-    @GetMapping("/findAll")
-    public ResponseEntity<?> findAll() {
-        List<RoleDTO> roleList = roleService.getAll()
-                .stream()
-                .map(role -> RoleDTO.builder()
-                        .id(role.getId())
-                        .name(role.getName())
-                        .description(role.getDescription())
-                        .status(role.getStatus())
+    private final IRoleService roleService;
+    private final MapperUtil mapperUtil;
 
-                        .build())
-                .toList();
-        return ResponseEntity.ok(roleList);
+    @GetMapping
+    public ResponseEntity<List<RoleDTO>> findAll() throws Exception {
+        List<RoleDTO> list = mapperUtil.mapList(roleService.findAll(),
+                RoleDTO.class);
+
+        return ResponseEntity.ok(list);
     }
 
-    @GetMapping("/find/{id}")
-    public ResponseEntity<?> findById(@PathVariable Long id){
-        Optional<Role> roleOptional = roleService.findById(id);
-        if(roleOptional.isPresent())
-        {
-            Role role = roleOptional.get();
-            RoleDTO roleDTO = RoleDTO.builder()
-                    .id(role.getId())
-                    .name(role.getName())
-                    .description(role.getDescription())
-
-                    .status((role.getStatus()))
-                    .build();
-            return ResponseEntity.ok(roleDTO);
-        }
-        return ResponseEntity.notFound().build();
+    @GetMapping("/{id}")
+    public ResponseEntity<RoleDTO> findById(@PathVariable("id") UUID id) throws Exception {
+        RoleDTO obj = mapperUtil.map(roleService.findById(id), RoleDTO.class);
+        return ResponseEntity.ok(obj);
     }
 
-    @PostMapping("/save")
-    public ResponseEntity<?> saveRole(@RequestBody RoleDTO roleDTO) throws URISyntaxException{
-        if(roleDTO.getName().isBlank()){
-            return ResponseEntity.badRequest().build();
-        }
-        roleService.saveRole(Role.builder()
-                .name(roleDTO.getName())
-                .description(roleDTO.getDescription())
+    @PostMapping
+    public ResponseEntity<Void> save(@RequestBody RoleDTO roleDTO) throws Exception{
+        Role obj = roleService.save(mapperUtil.map(roleDTO, Role.class));
 
-                .status(roleDTO.getStatus())
-                .build());
-        return ResponseEntity.created(new URI("/api/role/save")).build();
+        URI location = ServletUriComponentsBuilder.fromCurrentRequest()
+                .path("/{id}").buildAndExpand(obj.getIdRole()).toUri();
+
+        return ResponseEntity.created(location).build();
     }
-    
-    @PutMapping("/update/{id}")
-    public ResponseEntity<?> updateRole(@PathVariable Long id, @RequestBody RoleDTO roleDTO ){
-        Optional<Role> roleOptional = roleService.findById(id);
-        if(roleOptional.isPresent()) {
-            Role role = roleOptional.get();
-            role.setName(roleDTO.getName());
-            role.setDescription(roleDTO.getDescription());
-            role.setStatus(roleDTO.getStatus());
 
+    @PutMapping("/{id}")
+    public ResponseEntity<RoleDTO> update(@PathVariable("id") UUID id, @RequestBody RoleDTO roleDTO) throws Exception{
+        Role obj = roleService.update(mapperUtil.map(roleDTO, Role.class), id);
 
-            roleService.updateRole(id, role);
-            return ResponseEntity.ok("Rol actualizado");
-        }
-        return ResponseEntity.notFound().build();
+        return ResponseEntity.ok(mapperUtil.map(obj, RoleDTO.class));
     }
-    @DeleteMapping("/delete/{id}")
-    public ResponseEntity<?> deleteRole(@PathVariable Long id){
-        boolean result = roleService.deleteRole(id);
-        if(result){
-            return ResponseEntity.ok("Rol eliminado");
-        }
-        else{
-            return ResponseEntity.badRequest().build();
-        }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> delete(@PathVariable("id") UUID id) throws Exception{
+        roleService.delete(id);
+
+        return ResponseEntity.noContent().build();
+    }
+
+    @GetMapping("/hateoas/{id}")
+    public EntityModel<RoleDTO> findByIdHateoas(@PathVariable("id") UUID id) throws Exception {
+        Role obj = roleService.findById(id);
+        EntityModel<RoleDTO> resource = EntityModel.of(mapperUtil.map(obj, RoleDTO.class));
+
+        //Generar link informativo
+        WebMvcLinkBuilder link1 = linkTo(methodOn(this.getClass()).findById(id));
+        WebMvcLinkBuilder link2 = linkTo(methodOn(this.getClass()).findAll());
+
+        resource.add(link1.withRel("role-self-info"));
+        resource.add(link2.withRel("role-all-info"));
+        return resource;
+    }
+
+    /*private RoleDTO convertToDto(Role role) {
+        return modelMapper.map(role, RoleDTO.class);
+    }
+
+    private Role convertToEntity(RoleDTO roleDTO) {
+        return modelMapper.map(roleDTO, Role.class);
     }*/
 }
