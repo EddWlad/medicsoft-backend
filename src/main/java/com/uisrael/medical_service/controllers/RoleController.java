@@ -78,11 +78,4 @@ public class RoleController {
         return resource;
     }
 
-    /*private RoleDTO convertToDto(Role role) {
-        return modelMapper.map(role, RoleDTO.class);
-    }
-
-    private Role convertToEntity(RoleDTO roleDTO) {
-        return modelMapper.map(roleDTO, Role.class);
-    }*/
 }

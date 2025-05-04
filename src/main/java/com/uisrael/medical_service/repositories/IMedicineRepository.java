@@ -19,4 +19,7 @@ public interface IMedicineRepository extends IGenericRepository<Medicine,UUID> {
 
     @Query("SELECT u FROM Medicine u WHERE u.name = :name AND u.status = 0")
     Optional<Medicine> findDeletedMedicine(@Param("name") String name);
+
+    @Query("SELECT m FROM Medicine m WHERE LOWER(m.name) LIKE LOWER(CONCAT('%', :name, '%'))")
+    List<Medicine> findByNameIgnoreCase(@Param("name") String name);
 }

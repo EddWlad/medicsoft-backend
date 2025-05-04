@@ -3,15 +3,22 @@ version: '3.8'
 services:
   postgres-db:
     image: postgres:latest
-    restart: always
+    env_file: ./.env
     environment:
-      POSTGRES_USER: root
-      POSTGRES_DB: db_medicalService
-      POSTGRES_PASSWORD: root
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
     volumes:
-      - postgres:/var/lib/postgresql/data
+      - postgres:${DB_VOLUME_URL}
     ports:
-      - "5460:5432"
+      - ${DB_LOCAL_PORT}:${DB_DOCKER_PORT}
+
+  chroma_db:
+    container_name: "chroma_db"
+    image: "ghcr.io/chroma-core/chroma:0.6.4.dev215"
+    env_file: ./.env
+    ports:
+      - ${CHROMA_LOCAL_PORT}:${CHROMA_DOCKER_PORT}
 volumes:
   postgres:
 

@@ -7,17 +7,18 @@ import com.uisrael.medical_service.repositories.IMedicineRepository;
 import com.uisrael.medical_service.services.IMedicineService;
 import com.uisrael.medical_service.utils.MapperUtil;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
+
 import java.util.Optional;
 import java.util.UUID;
 
+
 @Service
 @RequiredArgsConstructor
-public class MedicineServiceImpl extends GenericServiceImpl<Medicine, UUID> implements IMedicineService {
+public class MedicineServiceImpl extends GenericServiceImpl<Medicine, UUID> implements IMedicineService{
     private final IMedicineRepository medicineRepository;
     private final MapperUtil mapperUtil;
 
@@ -30,6 +31,8 @@ public class MedicineServiceImpl extends GenericServiceImpl<Medicine, UUID> impl
     protected IGenericRepository<Medicine, UUID> getRepo() {
         return medicineRepository;
     }
+
+
 
     @Transactional
     public Medicine create(MedicineDTO dto) throws Exception {

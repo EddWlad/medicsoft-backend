@@ -1,127 +1,80 @@
 package com.uisrael.medical_service.controllers;
 
-import com.uisrael.medical_service.entities.Diagnostic;
 import com.uisrael.medical_service.dtos.DiagnosticDTO;
+import com.uisrael.medical_service.entities.Diagnostic;
 import com.uisrael.medical_service.services.IDiagnosticService;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.uisrael.medical_service.utils.MapperUtil;
+import lombok.RequiredArgsConstructor;
+import org.springframework.hateoas.EntityModel;
+import org.springframework.hateoas.server.mvc.WebMvcLinkBuilder;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
-import java.net.URISyntaxException;
 import java.util.List;
-import java.util.Optional;
+import java.util.UUID;
+
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 
 @RestController
-@RequestMapping("/api/diagnostic")
+@RequestMapping("/diagnostics")
+@RequiredArgsConstructor
 public class DiagnosticController {
-    /*@Autowired
-    private IDiagnosticService diagnosticService;
+    private final IDiagnosticService diagnosticService;
+    private final MapperUtil mapperUtil;
 
-    @GetMapping("/findAll")
-    public ResponseEntity<?> findAll(){
-        List<DiagnosticDTO> diagnosticList = diagnosticService.getAll()
-                .stream()
-                .map(diagnostic -> DiagnosticDTO.builder()
-                .id(diagnostic.getId())
-                .diagnostic(diagnostic.getDiagnostic())
-                .diagnosticDate(diagnostic.getDiagnosticDate())
-                .observation(diagnostic.getObservation())
-                .symptoms(diagnostic.getSymptoms())
-                .patient(diagnostic.getPatient())
-                .status(diagnostic.getStatus())
-                .build())
-                .toList();
-        return ResponseEntity.ok(diagnosticList);
+    @GetMapping
+    public ResponseEntity<List<DiagnosticDTO>> findAll() throws Exception {
+        List<DiagnosticDTO> list = mapperUtil.mapList(diagnosticService.findAll(),
+                DiagnosticDTO.class);
+
+        return ResponseEntity.ok(list);
     }
 
-    @GetMapping("/find/{id}")
-    public ResponseEntity<?> findById(@PathVariable Long id)
-    {
-        Optional<Diagnostic> diagnosticOptional = diagnosticService.findById(id);
-        if(diagnosticOptional.isPresent()){
-            Diagnostic diagnostic = diagnosticOptional.get();
-            DiagnosticDTO diagnosticDTO = DiagnosticDTO.builder()
-                    .id(diagnostic.getId())
-                    .diagnostic(diagnostic.getDiagnostic())
-                    .diagnosticDate(diagnostic.getDiagnosticDate())
-                    .observation(diagnostic.getObservation())
-                    .symptoms(diagnostic.getSymptoms())
-                    .patient(diagnostic.getPatient())
-                    .status(diagnostic.getStatus())
-                    .build();
-            return ResponseEntity.ok(diagnosticDTO);
-        }
-        return ResponseEntity.notFound().build();
+    @GetMapping("/{id}")
+    public ResponseEntity<DiagnosticDTO> findById(@PathVariable("id") UUID id) throws Exception {
+        DiagnosticDTO obj = mapperUtil.map(diagnosticService.findById(id), DiagnosticDTO.class);
+        return ResponseEntity.ok(obj);
     }
 
-    @GetMapping("/diagnostic")
-    public ResponseEntity<String> diagnostic(@RequestParam String symptoms){
-        if(symptoms == null || symptoms.isBlank()) {
-            return ResponseEntity.badRequest().body("No existen síntomas válidos.");
-        }
-        String diagnosticResult = diagnosticService.generateDiagnosticFromSymptoms(symptoms);
-        return ResponseEntity.ok(diagnosticResult);
+    @PostMapping
+    public ResponseEntity<Void> save(@RequestBody DiagnosticDTO diagnosticDTO) throws Exception{
+        Diagnostic obj = diagnosticService.save(mapperUtil.map(diagnosticDTO, Diagnostic.class));
+
+        URI location = ServletUriComponentsBuilder.fromCurrentRequest()
+                .path("/{id}").buildAndExpand(obj.getIdDiagnostic()).toUri();
+
+        return ResponseEntity.created(location).build();
     }
 
-    @PostMapping(value = "/save",consumes = "application/json")
-    public ResponseEntity<?> save(@RequestBody DiagnosticDTO diagnosticDTO) throws URISyntaxException {
-        if(diagnosticDTO.getDiagnostic().isBlank()){
-            return ResponseEntity.badRequest().build();
-        }
-        diagnosticService.saveDiagnostic(Diagnostic.builder()
-                .id(diagnosticDTO.getId())
-                .diagnosticDate(diagnosticDTO.getDiagnosticDate())
-                .patient(diagnosticDTO.getPatient())
-                .symptoms(diagnosticDTO.getSymptoms())
-                .diagnostic(diagnosticDTO.getDiagnostic())
-                .observation(diagnosticDTO.getObservation())
-                .status(diagnosticDTO.getStatus())
-                .isNew(true)
-                .build());
+    @PutMapping("/{id}")
+    public ResponseEntity<DiagnosticDTO> update(@PathVariable("id") UUID id, @RequestBody DiagnosticDTO diagnosticDTO) throws Exception{
+        Diagnostic obj = diagnosticService.update(mapperUtil.map(diagnosticDTO, Diagnostic.class), id);
 
-        return ResponseEntity.created(new URI("/api/diagnostic/save")).build();
+        return ResponseEntity.ok(mapperUtil.map(obj, DiagnosticDTO.class));
     }
 
-    @PutMapping("/update/{id}")
-    public ResponseEntity<?> updateDiagnostic(@PathVariable Long id, @RequestBody DiagnosticDTO diagnosticDTO ){
-        Optional<Diagnostic> diagnosticOptional = diagnosticService.findById(id);
-        if(diagnosticOptional.isPresent()){
-            Diagnostic diagnostic = diagnosticOptional.get();
-            diagnostic.setDiagnostic(diagnosticDTO.getDiagnostic());
-            diagnostic.setDiagnosticDate(diagnosticDTO.getDiagnosticDate());
-            diagnostic.setObservation(diagnosticDTO.getObservation());
-            diagnostic.setSymptoms(diagnosticDTO.getSymptoms());
-            diagnostic.setPatient(diagnosticDTO.getPatient());
-            diagnostic.setStatus(diagnosticDTO.getStatus());
-            diagnosticService.updateDiagnostic(id,diagnostic);
-            return  ResponseEntity.ok("Diagnostico Actualizado");
-        }
-        return ResponseEntity.notFound().build();
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> delete(@PathVariable("id") UUID id) throws Exception{
+        diagnosticService.delete(id);
+
+        return ResponseEntity.noContent().build();
     }
 
-    @GetMapping("/byPatient")
-    public ResponseEntity<List<DiagnosticDTO>> getDiagnosticsByPatient(
-            @RequestParam String name,
-            @RequestParam String lastName) {
-        List<DiagnosticDTO> diagnostics = diagnosticService.findDiagnosticsByPatientNameAndLastName(name, lastName);
-        return ResponseEntity.ok(diagnostics);
+    @GetMapping("/hateoas/{id}")
+    public EntityModel<DiagnosticDTO> findByIdHateoas(@PathVariable("id") UUID id) throws Exception {
+        Diagnostic obj = diagnosticService.findById(id);
+        EntityModel<DiagnosticDTO> resource = EntityModel.of(mapperUtil.map(obj, DiagnosticDTO.class));
+
+        //Generar link informativo
+        WebMvcLinkBuilder link1 = linkTo(methodOn(this.getClass()).findById(id));
+        WebMvcLinkBuilder link2 = linkTo(methodOn(this.getClass()).findAll());
+
+        resource.add(link1.withRel("Diagnostic-self-info"));
+        resource.add(link2.withRel("Diagnostic-all-info"));
+        return resource;
     }
 
-    @PutMapping("/markAsSeen/{patientId}")
-    public ResponseEntity<?> markDiagnosticsAsSeen(@PathVariable Long patientId) {
-        diagnosticService.markAllAsSeenByPatientId(patientId);
-        return ResponseEntity.ok("Diagnósticos marcados como vistos");
-    }
-
-    @DeleteMapping("/delete/{id}")
-    public ResponseEntity<?> deleteDiagnostic(@PathVariable Long id){
-        boolean result = diagnosticService.deleteDiagnostic(id);
-        if(result){
-            return ResponseEntity.ok("Diagnostico eliminado");
-        }
-        else{
-            return ResponseEntity.badRequest().build();
-        }
-    }*/
 }
