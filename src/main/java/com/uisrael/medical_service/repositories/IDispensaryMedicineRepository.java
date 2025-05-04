@@ -28,7 +28,8 @@ public interface IDispensaryMedicineRepository extends IGenericRepository<Dispen
             m.name,
             dm.quantity,
             m.description,
-            m.price
+            m.price,
+            m.unit_type
         FROM dispensary_medicine dm
         JOIN medicine m ON m.id_medicine = dm.id_medicine
         WHERE dm.id_dispensary = :dispensaryId

@@ -96,6 +96,7 @@ public class DispensaryServiceImpl extends GenericServiceImpl<Dispensary, UUID> 
             dto.setQuantity(Integer.parseInt(obj[3].toString()));
             dto.setDescription(obj[4] != null ? obj[4].toString() : null);
             dto.setPrice(obj[5] != null ? Double.parseDouble(obj[5].toString()) : null);
+            dto.setUnitType(obj[6] != null ? obj[6].toString() : null);
             return dto;
         }).toList();
 
@@ -118,6 +119,7 @@ public class DispensaryServiceImpl extends GenericServiceImpl<Dispensary, UUID> 
                 dto.setQuantity(Integer.parseInt(obj[3].toString()));
                 dto.setDescription(obj[4] != null ? obj[4].toString() : null);
                 dto.setPrice(obj[5] != null ? Double.parseDouble(obj[5].toString()) : null);
+                dto.setUnitType(obj[6] != null ? obj[6].toString() : null);
                 return dto;
             }).toList();
 
@@ -208,9 +210,10 @@ public class DispensaryServiceImpl extends GenericServiceImpl<Dispensary, UUID> 
 
     @Override
     public byte[] generatePdf(UUID id) throws Exception {
-        DispensaryDetailMedicineDTO dto = this.findWithMedicines(id); // este ya lo tienes
+        DispensaryDetailMedicineDTO dto = this.findWithMedicines(id);
 
-        Document document = new Document();
+        Rectangle smallPage = new Rectangle(235, 283);
+        Document document = new Document(smallPage);
         ByteArrayOutputStream out = new ByteArrayOutputStream();
         PdfWriter.getInstance(document, out);
 
