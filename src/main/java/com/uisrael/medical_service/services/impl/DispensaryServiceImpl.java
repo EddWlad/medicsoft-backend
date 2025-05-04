@@ -206,4 +206,34 @@ public class DispensaryServiceImpl extends GenericServiceImpl<Dispensary, UUID> 
         return true;
     }
 
+    @Override
+    public byte[] generatePdf(UUID id) throws Exception {
+        DispensaryDetailMedicineDTO dto = this.findWithMedicines(id); // este ya lo tienes
+
+        Document document = new Document();
+        ByteArrayOutputStream out = new ByteArrayOutputStream();
+        PdfWriter.getInstance(document, out);
+
+        document.open();
+        Font font = FontFactory.getFont(FontFactory.HELVETICA_BOLD, 12);
+
+        document.add(new Paragraph("Ticket de Dispensación", font));
+        document.add(new Paragraph(" "));
+        document.add(new Paragraph("Paciente: " + dto.getDispensaryDTO().getPatient().getName() + " " + dto.getDispensaryDTO().getPatient().getLastName()));
+        document.add(new Paragraph("Cédula: " + dto.getDispensaryDTO().getPatient().getIdentification()));
+        document.add(new Paragraph("Fecha: " + dto.getDispensaryDTO().getDispensaryCreate()));
+        document.add(new Paragraph("Doctora: " + dto.getDispensaryDTO().getDoctor().getName() + " " + dto.getDispensaryDTO().getDoctor().getLastName()));
+        document.add(new Paragraph("Observación: " + dto.getDispensaryDTO().getObservation()));
+        document.add(new Paragraph(" "));
+
+        document.add(new Paragraph("Medicamentos:", font));
+        for (MedicineDispensaryDetailDTO med : dto.getMedicines()) {
+            document.add(new Paragraph("- " + med.getName() + " | Cantidad: " + med.getQuantity() + " | Unidad: " + med.getUnitType()));
+        }
+
+        document.close();
+        return out.toByteArray();
+    }
+
+
 }

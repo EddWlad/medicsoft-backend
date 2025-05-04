@@ -14,6 +14,7 @@ public class MedicineDispensaryDetailDTO {
     private UUID idMedicine;
     private String photo;
     private String name;
+    private String unitType;
     private Integer quantity;
     private String description;
     private Double price;

@@ -22,4 +22,6 @@ public interface IDispensaryService extends IGenericService<Dispensary, UUID> {
     Dispensary updateTransactional(UUID id, Dispensary dispensary, List<DispensaryDetailDTO> medicines) throws Exception;
 
     boolean softDeleteWithRollback(UUID id) throws Exception;
+
+    byte[] generatePdf(UUID id) throws Exception;
 }

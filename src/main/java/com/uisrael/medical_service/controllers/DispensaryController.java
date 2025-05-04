@@ -9,6 +9,8 @@ import com.uisrael.medical_service.services.IDispensaryService;
 import com.uisrael.medical_service.utils.MapperUtil;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -74,6 +76,19 @@ public class DispensaryController {
         } else {
             return ResponseEntity.notFound().build();
         }
+    }
+
+    @GetMapping("/pdf/{id}")
+    public ResponseEntity<byte[]> generatePdf(@PathVariable UUID id) throws Exception {
+        byte[] pdf = dispensaryService.generatePdf(id);
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_PDF);
+        headers.setContentDispositionFormData("filename", "ticket-dispensacion.pdf");
+
+        return ResponseEntity.ok()
+                .headers(headers)
+                .body(pdf);
     }
 
 }
