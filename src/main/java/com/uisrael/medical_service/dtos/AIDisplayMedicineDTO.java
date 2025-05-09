@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class AIDisplayMedicineDTO {
-    private String idMedicine;  // String, no UUID
+    private String idMedicine;
     private String name;
     private String description;
     private String unitType;

@@ -1,14 +1,14 @@
 package com.uisrael.medical_service.services.impl;
 
 import com.uisrael.medical_service.dtos.AIResponseStockDTO;
-import com.uisrael.medical_service.dtos.MedicineDTO;
+
 import com.uisrael.medical_service.entities.Medicine;
 import com.uisrael.medical_service.repositories.IMedicineRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Locale;
+
 import java.util.function.Function;
 
 @Service
